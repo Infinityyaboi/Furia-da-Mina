@@ -21,3 +21,6 @@
 
 // Codigo de movimento do jogador
 
+// Codigo para manter os pontos
+
+// Codigo para salvar o high score
