@@ -5,14 +5,18 @@
 
 
 void main(){
-    InitWindow(800, 450, "Furia da Mina");
+    // X, Y
+    InitWindow(1150, 650, "Furia da Mina");
 
     while(!WindowShouldClose()){
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
-            DrawText("Test sucessful!", 190, 200, 20, LIGHTGRAY);
+            DrawText("Test sucessful!", 20, 30, 20, LIGHTGRAY);
+
+            // 0,0 coordinate
+            DrawRectangle(0,0,20, 20, RED);
         EndDrawing();
     }
     CloseWindow();
