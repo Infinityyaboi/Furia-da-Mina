@@ -1,8 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "raylib.h"
 
 
+void main(){
+    InitWindow(800, 450, "Furia da Mina");
+
+    while(!WindowShouldClose()){
+        BeginDrawing();
+
+            ClearBackground(RAYWHITE);
+
+            DrawText("Test sucessful!", 190, 200, 20, LIGHTGRAY);
+        EndDrawing();
+    }
+    CloseWindow();
+}
 // Sprite do minecart muda quanto mais pontos tem, tendo mais items nele, tambem deve fica mais devagar com mais items
 
 // items deven cair mais rapido com a quantidade de pontos
