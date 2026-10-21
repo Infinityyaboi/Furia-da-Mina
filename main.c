@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "raylib.h"
+#include <raylib.h>
 
 
 void main(){
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
+    SetTargetFPS(30);
+    float posX = 0;
+    float posY = 0;
 
     while(!WindowShouldClose()){
         BeginDrawing();
@@ -17,6 +20,11 @@ void main(){
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
+
+            //movement test
+            DrawRectangle(posX, posY,20, 20, BLUE);
+            posX += GetFrameTime();
+            posY += (GetFrameTime() * 65) * 3.5f;
         EndDrawing();
     }
     CloseWindow();
