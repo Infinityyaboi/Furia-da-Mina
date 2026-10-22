@@ -8,6 +8,7 @@
 void main(){
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
+    InitAudioDevice();
 
     Gold.sprite = LoadTexture("sprites/Gold.png");
     Ruby.sprite = LoadTexture("sprites/Ruby.png");
@@ -17,14 +18,18 @@ void main(){
     SetTargetFPS(30);
     float posX = 0;
     float posY = 0;
-    float playerX = 500;
+    Vector2 playerPos = {500, 450};
 
     while(!WindowShouldClose()){
+
+        Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.9f), (Diamond.sprite.height * 0.9f)};
+
+
         if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
-            playerX -= GetFrameTime() * 200;
+            playerPos.x -= GetFrameTime() * 200;
         }
         if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
-            playerX += GetFrameTime() * 200;
+            playerPos.x += GetFrameTime() * 200;
         }
 
         BeginDrawing();
@@ -35,11 +40,11 @@ void main(){
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
-            DrawTexture(Diamond.sprite, playerX, 500, WHITE);
+            DrawTextureEx(Diamond.sprite, playerPos, 0.0f, 0.3f, WHITE);
             //movement test
             DrawRectangle(posX, posY,20, 20, BLUE);
             posX += GetFrameTime();
-            posY += (GetFrameTime() * 65) * 3.5f;
+            posY += (GetFrameTime() * 65) * Emerald.fallspd;
         EndDrawing();
     }
 
@@ -47,7 +52,7 @@ void main(){
     UnloadTexture(Ruby.sprite);
     UnloadTexture(Diamond.sprite);
     UnloadTexture(Emerald.sprite);
-
+    CloseAudioDevice();
     CloseWindow();
 }
 // Sprite do minecart muda quanto mais pontos tem, tendo mais items nele, tambem deve fica mais devagar com mais items
