@@ -22,9 +22,10 @@ void main(){
 
     while(!WindowShouldClose()){
 
-        Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.9f), (Diamond.sprite.height * 0.9f)};
+        // caixa de collisão do jogador
+        Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.3f), ((Diamond.sprite.height * 0.3f) - 50)};
 
-
+        //Movemento do jogador, precisa melhorar as physicas e adicionar a mudança de velocidade de acordo com os pontos
         if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
             playerPos.x -= GetFrameTime() * 200;
         }
