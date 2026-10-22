@@ -17,8 +17,16 @@ void main(){
     SetTargetFPS(30);
     float posX = 0;
     float posY = 0;
+    float playerX = 500;
 
     while(!WindowShouldClose()){
+        if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
+            playerX -= GetFrameTime() * 200;
+        }
+        if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
+            playerX += GetFrameTime() * 200;
+        }
+
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
@@ -27,7 +35,7 @@ void main(){
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
-            DrawTexture(Diamond.sprite, 500, 500, WHITE);
+            DrawTexture(Diamond.sprite, playerX, 500, WHITE);
             //movement test
             DrawRectangle(posX, posY,20, 20, BLUE);
             posX += GetFrameTime();
