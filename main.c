@@ -2,11 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <raylib.h>
+#include "items.h"
 
 
 void main(){
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
+
+    Gold.sprite = LoadTexture("sprites/Gold.png");
+    Ruby.sprite = LoadTexture("sprites/Ruby.png");
+    Diamond.sprite = LoadTexture("sprites/Diamond.png");
+    Emerald.sprite = LoadTexture("sprites/Emerald.png");
+
     SetTargetFPS(30);
     float posX = 0;
     float posY = 0;
@@ -20,13 +27,19 @@ void main(){
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
-
+            DrawTexture(Diamond.sprite, 500, 500, WHITE);
             //movement test
             DrawRectangle(posX, posY,20, 20, BLUE);
             posX += GetFrameTime();
             posY += (GetFrameTime() * 65) * 3.5f;
         EndDrawing();
     }
+
+    UnloadTexture(Gold.sprite);
+    UnloadTexture(Ruby.sprite);
+    UnloadTexture(Diamond.sprite);
+    UnloadTexture(Emerald.sprite);
+
     CloseWindow();
 }
 // Sprite do minecart muda quanto mais pontos tem, tendo mais items nele, tambem deve fica mais devagar com mais items
