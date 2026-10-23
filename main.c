@@ -60,8 +60,6 @@ void main(){
 
 // items deven cair mais rapido com a quantidade de pontos
 
-// Poções devem ficar mais raras com a quantidade de pontos, bombas mais communs
-
 // Mais items devem cair com mais pontos
 
 // Codigo para determinar quantos items estão caindo

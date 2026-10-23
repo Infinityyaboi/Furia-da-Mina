@@ -13,9 +13,7 @@ Ore Emerald = {2500, 3.5f, {0}};
 
 // Bombs
 
+// Magnet
 
-
-// Health Potion
-
-
+// Speed Potion
 
