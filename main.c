@@ -3,13 +3,19 @@
 #include <string.h>
 #include <raylib.h>
 #include "items.h"
-
+#include "movement.h"
 
 void main(){
+
+    Texture2D p;    
+    Texture2D w;
+
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
     InitAudioDevice();
 
+    p = LoadTexture("sprites/player.png");
+    w = LoadTexture("sprites/wheels.png");
     Gold.sprite = LoadTexture("sprites/Gold.png");
     Ruby.sprite = LoadTexture("sprites/Ruby.png");
     Diamond.sprite = LoadTexture("sprites/Diamond.png");
@@ -26,12 +32,7 @@ void main(){
         Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.3f), ((Diamond.sprite.height * 0.3f) - 50)};
 
         //Movemento do jogador, precisa melhorar as physicas e adicionar a mudança de velocidade de acordo com os pontos
-        if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
-            playerPos.x -= GetFrameTime() * 200;
-        }
-        if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
-            playerPos.x += GetFrameTime() * 200;
-        }
+        move(&playerPos);
 
         BeginDrawing();
 
@@ -41,7 +42,9 @@ void main(){
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
-            DrawTextureEx(Diamond.sprite, playerPos, 0.0f, 0.3f, WHITE);
+
+            DrawPlayer(p, w, &playerPos);
+            // DrawTextureEx(Diamond.sprite, playerPos, 0.0f, 0.3f, WHITE);
             //movement test
             DrawRectangle(posX, posY,20, 20, BLUE);
             posX += GetFrameTime();
