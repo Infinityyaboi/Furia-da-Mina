@@ -1,18 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <raylib.h>
 
+float moment = 0;
+int flip = 32;
+float rot = 0;
+float rotrate = 15;
+
+
 void move(Vector2 *c){
-    if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
-            c -> x -= GetFrameTime() * 270;
-    } else if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
-            c -> x += GetFrameTime() * 270;
+    if((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && c -> x >= 0){
+        if(c -> x > 0 && moment >= -1){
+            moment -= 0.03;
+        } else if(c -> x > 0 && moment == -1){
+            moment = -1;
+        } else if(c -> x <= 0){
+            moment = 0;
+        } 
+    } else if((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && c -> x <= GetScreenWidth() - 112){
+         if(c -> x < GetScreenWidth() - 112 && moment <= 1){
+            moment += 0.03;
+        } else if(c -> x < GetScreenWidth() - 112 && moment == 1){
+            moment = 1;
+        } else if(c -> x >= GetScreenWidth() - 112){
+            moment = 0;
+        }
+    } else if(moment != 0.0f){
+        moment *= 0.9f;
+        rotrate *= 0.9f;
+        if(moment > 0.0f){
+            rot -= rotrate; 
+        }else if(moment < 0.0f){
+            rot += rotrate;
+        }
+
+        if(fabsf(moment) <= 0.001f){
+            moment = 0;
+            rotrate = 15;
+        }
+    } 
+    c -> x += ((GetFrameTime() * (15 * moment)) * 50);
+
+    if(c -> x <= 0){
+        c -> x = 0;
+        moment = 0;
+    } else if(c -> x >= GetScreenWidth() - 112){
+        c -> x = GetScreenWidth() - 112;
+        moment = 0;
     }
+    
 }
 
-extern int flip = 32;
-extern int rot = 0;
+
 
 //Player sprite is 32x32
 
