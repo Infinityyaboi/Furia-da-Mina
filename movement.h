@@ -8,10 +8,15 @@ float moment = 0;
 int flip = 32;
 float rot = 0;
 float rotrate = 15;
+int spr = 0;
 
 
-void move(Vector2 *c){
+void move(Vector2 *c, int s){
     if((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && c -> x >= 0){
+        if(moment > 0){
+            moment -= 0.07;
+        }
+
         if(c -> x > 0 && moment >= -1){
             moment -= 0.03;
         } else if(c -> x > 0 && moment == -1){
@@ -20,7 +25,11 @@ void move(Vector2 *c){
             moment = 0;
         } 
     } else if((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && c -> x <= GetScreenWidth() - 112){
-         if(c -> x < GetScreenWidth() - 112 && moment <= 1){
+        if(moment < 0){
+            moment += 0.07;
+        }
+
+        if(c -> x < GetScreenWidth() - 112 && moment <= 1){
             moment += 0.03;
         } else if(c -> x < GetScreenWidth() - 112 && moment == 1){
             moment = 1;
@@ -41,7 +50,19 @@ void move(Vector2 *c){
             rotrate = 15;
         }
     } 
-    c -> x += ((GetFrameTime() * (15 * moment)) * 50);
+
+    if(s <= 5){
+        c -> x += ((GetFrameTime() * (15 * moment)) * 50);
+    } else if(s > 5 && s <= 10){
+        c -> x += ((GetFrameTime() * (10 * moment)) * 40);
+    } else if(s > 10 && s <= 15){
+        c -> x += ((GetFrameTime() * (10 * moment)) * 30);
+    } else if(s > 15 && s <= 20){
+        c -> x += ((GetFrameTime() * (10 * moment)) * 20);
+    } else if(s > 20){
+        c -> x += ((GetFrameTime() * (10 * moment)) * 15);
+    }
+    
 
     if(c -> x <= 0){
         c -> x = 0;
@@ -57,7 +78,7 @@ void move(Vector2 *c){
 
 //Player sprite is 32x32
 
-void DrawPlayer(Texture2D player, Texture2D wheel, Vector2 *loc){
+void DrawPlayer(Texture2D player, Texture2D wheel, Vector2 *loc, int s){
     if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
             flip = -32;
             rot -= 15;
@@ -68,7 +89,19 @@ void DrawPlayer(Texture2D player, Texture2D wheel, Vector2 *loc){
     }
     
     //Player refs
-    Rectangle org1 = (Rectangle){0, 0, flip,32};
+    if(s <= 5){
+        spr = 0;
+    } else if(s > 5 && s <= 10){
+        spr = 32;
+    } else if(s > 10 && s <= 15){
+        spr = 64;
+    } else if(s > 15 && s <= 20){
+        spr = 96;
+    } else if(s > 20){
+        spr = 128;
+    }
+    
+    Rectangle org1 = (Rectangle){spr, 0, flip,32};
     Rectangle dest1 = (Rectangle){loc -> x, loc -> y,org1.width * 3.5,org1.height * 3.5};
 
     //Wheel refs

@@ -22,6 +22,8 @@ void main(){
     Diamond.sprite = LoadTexture("sprites/Diamond.png");
     Emerald.sprite = LoadTexture("sprites/Emerald.png");
 
+    int score = 0;
+
     SetTargetFPS(30);
     float posX = 0;
     float posY = 0;
@@ -33,18 +35,23 @@ void main(){
         Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.3f), ((Diamond.sprite.height * 0.3f) - 50)};
 
         //Movemento do jogador, precisa melhorar as physicas e adicionar a mudança de velocidade de acordo com os pontos
-        move(&playerPos);
+        move(&playerPos, score);
 
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
-            DrawText("Test sucessful!", 20, 30, 20, LIGHTGRAY);
+            DrawText("SCORE: ", 20, 30, 20, BLACK);
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
 
-            DrawPlayer(p, w, &playerPos);
+            if(IsKeyPressed(KEY_P)){
+                score += 6;
+            }
+
+
+            DrawPlayer(p, w, &playerPos, score);
             // DrawTextureEx(Diamond.sprite, playerPos, 0.0f, 0.3f, WHITE);
             //movement test
             DrawRectangle(posX, posY,20, 20, BLUE);
@@ -79,3 +86,5 @@ void main(){
 // Codigo para manter os pontos
 
 // Codigo para salvar o high score
+
+// Leaderboard de score
