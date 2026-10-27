@@ -54,14 +54,12 @@ void move(Vector2 *c, int s){
     if(s <= 5){
         c -> x += ((GetFrameTime() * (15 * moment)) * 50);
     } else if(s > 5 && s <= 10){
-        c -> x += ((GetFrameTime() * (10 * moment)) * 40);
+        c -> x += ((GetFrameTime() * (10 * moment)) * 35);
     } else if(s > 10 && s <= 15){
-        c -> x += ((GetFrameTime() * (10 * moment)) * 30);
-    } else if(s > 15 && s <= 20){
         c -> x += ((GetFrameTime() * (10 * moment)) * 20);
-    } else if(s > 20){
+    } else if(s > 15){
         c -> x += ((GetFrameTime() * (10 * moment)) * 15);
-    }
+    } 
     
 
     if(c -> x <= 0){
@@ -95,11 +93,9 @@ void DrawPlayer(Texture2D player, Texture2D wheel, Vector2 *loc, int s){
         spr = 32;
     } else if(s > 10 && s <= 15){
         spr = 64;
-    } else if(s > 15 && s <= 20){
+    } else if(s > 15){
         spr = 96;
-    } else if(s > 20){
-        spr = 128;
-    }
+    } 
     
     Rectangle org1 = (Rectangle){spr, 0, flip,32};
     Rectangle dest1 = (Rectangle){loc -> x, loc -> y,org1.width * 3.5,org1.height * 3.5};

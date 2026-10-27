@@ -6,6 +6,7 @@
 #include "items.h"
 #include "movement.h"
 
+
 void main(){
 
     Texture2D p;    
@@ -22,7 +23,13 @@ void main(){
     Diamond.sprite = LoadTexture("sprites/Diamond.png");
     Emerald.sprite = LoadTexture("sprites/Emerald.png");
 
+    int life = 3;
+
+
     int score = 0;
+
+    int gameover = 0;
+    int scorepos = 1000;
 
     SetTargetFPS(30);
     float posX = 0;
@@ -31,8 +38,13 @@ void main(){
 
     while(!WindowShouldClose()){
 
+        FILE *hscore;
+
         // caixa de collisão do jogador
         Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.3f), ((Diamond.sprite.height * 0.3f) - 50)};
+
+
+        hscore = fopen("high_score.txt", "w");
 
         //Movemento do jogador, precisa melhorar as physicas e adicionar a mudança de velocidade de acordo com os pontos
         move(&playerPos, score);
@@ -41,14 +53,21 @@ void main(){
 
             ClearBackground(RAYWHITE);
 
-            DrawText("SCORE: ", 20, 30, 20, BLACK);
+            DrawText(TextFormat("SCORE: %d", score), 30, 60, 20, BLACK);
+            
+
 
             // 0,0 coordinate
             DrawRectangle(0,0,20, 20, RED);
 
             if(IsKeyPressed(KEY_P)){
-                score += 6;
+                score += 60000;
+                score*= 300;
             }
+            if(IsKeyPressed(KEY_G)){
+                gameover = 1;
+            }
+
 
 
             DrawPlayer(p, w, &playerPos, score);
