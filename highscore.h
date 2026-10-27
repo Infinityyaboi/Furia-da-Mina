@@ -46,26 +46,28 @@ void add_score(score** curr, int s){
         *curr = ns;
     } else{
         score* aux = *curr;
+
+        while(aux -> next != NULL){
+            if(aux -> score > ns -> score){
+                if (aux -> next -> score < ns -> score){
+                    ns -> next = aux ->next;
+                    aux -> next = ns;
+                } else if(aux -> next -> score >= ns -> score){
+                    aux = aux -> next;
+                }
+            } else if(aux -> score == ns -> score){
+                if (aux -> next -> score < ns -> score){
+                    ns -> next = aux -> next;
+                    aux -> next = ns;
+                } else{
+                    aux = aux -> next;
+                }
+            } 
+        }
+        if(aux -> next == NULL){
+            aux -> next = ns;
+        }
         
-        if(aux -> score > ns -> score){
-            if(aux -> next == NULL){
-                aux = aux -> next;
-            } else if (aux -> next -> score < ns -> score){
-                ns -> next = aux ->next;
-                aux -> next = ns;
-            } else if(aux -> next -> score >= ns -> score){
-                aux = aux -> next;
-            }
-        } else if(aux -> score == ns -> score){
-            if(aux-> next == NULL){
-                aux -> next = ns;
-            } else if (aux -> next -> score < ns -> score){
-                ns -> next = aux -> next;
-                aux -> next = ns;
-            } else{
-                aux = aux -> next;
-            }
-        } 
     }
     make_five(&(*curr));
 
