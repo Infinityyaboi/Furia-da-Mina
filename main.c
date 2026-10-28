@@ -5,6 +5,8 @@
 #include <math.h>
 #include "items.h"
 #include "movement.h"
+#include "highscore.h"
+#include "menu.h"
 
 
 void main(){
