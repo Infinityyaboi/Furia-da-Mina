@@ -34,8 +34,7 @@ void main(){
 
 
         // caixa de collisão do jogador
-        Rectangle plyrColl = {playerPos.x, playerPos.y, (Diamond.sprite.width * 0.3f), ((Diamond.sprite.height * 0.3f) - 50)};
-
+        Rectangle plyrColl = {playerPos.x, playerPos.y, (32.0 * 3.5), ((32.0 * 3.5) - 50.0)};
         
 
         BeginDrawing();
