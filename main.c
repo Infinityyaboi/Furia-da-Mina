@@ -125,7 +125,6 @@ void main(){
     CloseAudioDevice();
     CloseWindow();
 }
-// Sprite do minecart muda quanto mais pontos tem, tendo mais items nele, tambem deve fica mais devagar com mais items
 
 // items deven cair mais rapido com a quantidade de pontos
 
@@ -139,9 +138,7 @@ void main(){
 
 // Codigo para cair items, e aumentar a velocidade
 
-// Codigo de movimento do jogador
-
-// Codigo para manter os pontos
+// Codigo para manter os pontos 1/2
 
 // Codigo para salvar o high score
 
