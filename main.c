@@ -16,6 +16,7 @@ int gameover = 0;
 Texture2D p;
 Texture2D w;
 
+
 void main(){
     p.id = 0;
 
@@ -59,9 +60,9 @@ void main(){
                     init = 1;
                 }
                 ClearBackground((Color){46, 52, 64, 255});
-                load_big_button(&start, 50);
+                //load_big_button(&start, 1);
 
-                if(load_big_button(&start, 50) == 1){
+                if(load_big_button(&start, 3) == 1){
                     menu = 1;
                     init = 0;
                 }

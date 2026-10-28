@@ -5,7 +5,7 @@
 #include <raylib.h>
 #pragma once
 
-extern Vector2 playerPos = {575, 450};
+extern Vector2 playerPos = {500, 450};
 float moment = 0;
 int flip = 32;
 float rot = 0;
@@ -122,5 +122,5 @@ void DrawPlayer(Texture2D player, Texture2D wheel, int s){
 
 void reset_pos(){
     moment = 0;
-    playerPos = (Vector2) {575, 450};
+    playerPos = (Vector2) {500, 450};
 }

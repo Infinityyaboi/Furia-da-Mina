@@ -10,10 +10,10 @@ typedef struct{
     Vector2 pos;
 }Button;
 
-extern Button start = {0, {575, 325}};
+extern Button start = {{0}, {440, 325}};
 
 int button_pressed(Button *butt, float h, float w){
-    Rectangle size = {(*butt).pos.x, (*butt).pos.y, h, w};
+    Rectangle size = {(*butt).pos.x, (*butt).pos.y, w, h};
     if(CheckCollisionPointRec(GetMousePosition(), size)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
             return 2;
@@ -24,17 +24,17 @@ int button_pressed(Button *butt, float h, float w){
 }
 
 int load_big_button(Button *butt, float size){
-    float h = 32 * size;
-    float w = 128 * size;
-    int check = button_pressed(&(*butt), h, w);
-    if(check == 1){
-        DrawTexture((*butt).texture, (*butt).pos.x, (*butt).pos.y, WHITE);
+    float h = 22 * size;
+    float w = 87 * size;
+    int check = button_pressed(butt, h, w);
+    if(check == 0){
+        DrawTextureEx((*butt).texture, (*butt).pos, 0, size, WHITE);
         return 0;
     } else if(check == 1){
-        DrawTexture((*butt).texture, (*butt).pos.x, (*butt).pos.y, BLACK);
+        DrawTextureEx((*butt).texture, (*butt).pos, 0, size, BLUE);
         return 0;
-    } else if(check == 1){
-        DrawTexture((*butt).texture, (*butt).pos.x, (*butt).pos.y, WHITE);
+    } else if(check == 2){
+        DrawTextureEx((*butt).texture, (*butt).pos, 0, size, WHITE);
         return 1;
     }
 
