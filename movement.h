@@ -54,13 +54,13 @@ void move(int s){
         }
     } 
 
-    if(s <= 5){
+    if(s <= 8000){
         playerPos.x += ((GetFrameTime() * (15 * moment)) * 50);
-    } else if(s > 5 && s <= 10){
+    } else if(s > 8000 && s <= 30000){
         playerPos.x += ((GetFrameTime() * (10 * moment)) * 35);
-    } else if(s > 10 && s <= 15){
+    } else if(s > 30000 && s <= 50000){
         playerPos.x += ((GetFrameTime() * (10 * moment)) * 20);
-    } else if(s > 15){
+    } else if(s > 50000){
         playerPos.x += ((GetFrameTime() * (10 * moment)) * 15);
     } 
     
@@ -90,13 +90,13 @@ void DrawPlayer(Texture2D player, Texture2D wheel, int s){
     }
     
     //Player refs
-    if(s <= 5){
+    if(s <= 8000){
         spr = 0;
-    } else if(s > 5 && s <= 10){
+    } else if(s > 8000 && s <= 30000){
         spr = 32;
-    } else if(s > 10 && s <= 15){
+    } else if(s > 30000 && s <= 50000){
         spr = 64;
-    } else if(s > 15){
+    } else if(s > 50000){
         spr = 96;
     } 
     

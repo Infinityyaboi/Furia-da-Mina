@@ -92,7 +92,7 @@ void main(){
                 DrawRectangle(0,0,20, 20, RED);
 
                 if(IsKeyPressed(KEY_O)){
-                    cs += 500;
+                    cs += Emerald.points;
                 }
                 if(IsKeyPressed(KEY_G)){
                     gameover = 1;
@@ -110,7 +110,9 @@ void main(){
             }
         EndDrawing();
     }
-
+    if(start.texture.id > 0){
+        UnloadTexture(start.texture);
+    }
     if(p.id > 0){
         UnloadTexture(p);
         UnloadTexture(w);
