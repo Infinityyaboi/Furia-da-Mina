@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <raylib.h>
+#pragma once
 
 typedef struct score{
     int score;
