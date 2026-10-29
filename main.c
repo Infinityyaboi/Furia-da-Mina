@@ -44,7 +44,7 @@ void main(){
 
                 if(init == 0){ 
                     if(start.texture.id == 0){
-                        start.texture = LoadTexture("sprites/buttons/butsubmit.png");
+                        start.texture = LoadTexture("sprites/buttons/butstart.png");
                     }
                     if(p.id > 0){
                         UnloadTexture(p);
@@ -61,7 +61,7 @@ void main(){
                 ClearBackground((Color){46, 52, 64, 255});
                 //load_big_button(&start, 1);
 
-                if(load_big_button(&start, 3) == 1){
+                if(load_big_button(&start, 3) == 1 || IsKeyPressed(KEY_S)){
                     menu = 1;
                     init = 0;
                 }

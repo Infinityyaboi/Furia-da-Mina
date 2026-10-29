@@ -12,7 +12,7 @@ typedef struct{
     int h;
 }Button;
 
-extern Button start = {{0}, {440, 325}, 64, 24};
+extern Button start = {{0}, {500, 325}, 32, 24};
 Color shift = {155, 169, 196, 180};
 
 int button_pressed(Button *butt, float h, float w){
