@@ -8,9 +8,12 @@
 typedef struct{
     Texture2D texture;
     Vector2 pos;
+    int w;
+    int h;
 }Button;
 
-extern Button start = {{0}, {440, 325}};
+extern Button start = {{0}, {440, 325}, 64, 24};
+Color shift = {155, 169, 196, 180};
 
 int button_pressed(Button *butt, float h, float w){
     Rectangle size = {(*butt).pos.x, (*butt).pos.y, w, h};
@@ -24,14 +27,14 @@ int button_pressed(Button *butt, float h, float w){
 }
 
 int load_big_button(Button *butt, float size){
-    float h = 22 * size;
-    float w = 87 * size;
+    float h = (*butt).h * size;
+    float w = (*butt).w * size;
     int check = button_pressed(butt, h, w);
     if(check == 0){
         DrawTextureEx((*butt).texture, (*butt).pos, 0, size, WHITE);
         return 0;
     } else if(check == 1){
-        DrawTextureEx((*butt).texture, (*butt).pos, 0, size, BLUE);
+        DrawTextureEx((*butt).texture, (*butt).pos, 0, size, shift);
         return 0;
     } else if(check == 2){
         DrawTextureEx((*butt).texture, (*butt).pos, 0, size, WHITE);

@@ -44,7 +44,7 @@ void main(){
 
                 if(init == 0){ 
                     if(start.texture.id == 0){
-                        start.texture = LoadTexture("sprites/buttons/button_base.png");
+                        start.texture = LoadTexture("sprites/buttons/butsubmit.png");
                     }
                     if(p.id > 0){
                         UnloadTexture(p);
