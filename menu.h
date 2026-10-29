@@ -26,7 +26,7 @@ int button_pressed(Button *butt, float h, float w){
     return 0;
 }
 
-int load_big_button(Button *butt, float size){
+int load_button(Button *butt, float size){
     float h = (*butt).h * size;
     float w = (*butt).w * size;
     int check = button_pressed(butt, h, w);

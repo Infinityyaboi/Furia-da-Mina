@@ -61,7 +61,7 @@ void main(){
                 ClearBackground((Color){46, 52, 64, 255});
                 //load_big_button(&start, 1);
 
-                if(load_big_button(&start, 3) == 1 || IsKeyPressed(KEY_S)){
+                if(load_button(&start, 3) == 1 || IsKeyPressed(KEY_S)){
                     menu = 1;
                     init = 0;
                 }
