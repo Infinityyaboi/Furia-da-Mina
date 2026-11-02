@@ -26,3 +26,4 @@ extern Ore Gold;
 extern Ore Ruby;
 extern Ore Diamond;
 extern Ore Emerald;
+extern Ore Bomb;
