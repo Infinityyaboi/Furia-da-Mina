@@ -28,6 +28,15 @@ void main(){
     float posX = 0;
     float posY = 0;
     
+    #define MAX_ITEMS 30
+
+    ItemCaindo items[MAX_ITEMS];
+
+    for(int i =0; i < MAX_ITEMS; i++){
+        listaItems[i].ativo = 0;
+    }
+
+    float timerSpawn = 0;
 
     while(!WindowShouldClose()){
 
@@ -103,9 +112,73 @@ void main(){
                 move(cs);
                 DrawPlayer(p, w, cs);
                 //movement test
-                DrawRectangle(posX, posY,20, 20, BLUE);
-                posX += GetFrameTime();
-                posY += (GetFrameTime() * 65) * Emerald.fallspd;
+                //DrawRectangle(posX, posY,20, 20, BLUE);
+                //posX += GetFrameTime();
+                ///posY += (GetFrameTime() * 65) * Emerald.fallspd;
+
+                // Soma o tempo que passou desde o último frame
+timerSpawn += GetFrameTime();
+
+// Se passou 1 segundo, tenta criar um item novo
+if(timerSpawn >= 1.0f) {
+    timerSpawn = 0.0f; // Zera o cronômetro para contar o próximo segundo
+
+    // Procura a primeira gaveta vazia (ativo == 0) no vetor
+    for(int i = 0; i < MAX_ITENS; i++) {
+        if(listaItens[i].ativo == 0) {
+            listaItens[i].ativo = 1; // Liga o item!
+            
+            // Sorteia uma posição X aleatória na largura da tela (entre 0 e 1100)
+            listaItens[i].hitBox.x = GetRandomValue(0, 1100);
+            // Começa lá no topo, um pouco acima da tela (-50) para cair suave
+            listaItens[i].hitBox.y = -50;
+            // Tamanho da caixa de colisão do item (largura e altura)
+            listaItens[i].hitBox.width = 40;
+            listaItens[i].hitBox.height = 40;
+
+            // Sorteando qual minério vai cair
+            int sorteio = GetRandomValue(1, 4);
+            switch(sorteio){
+                case 1:
+                    listaItens[i].tipo = Gold;
+                    break;
+                case 2:
+                    listaItens[i].tipo = Ruby;
+                    break;
+                case 3:
+                    listaItens[i].tipo = Diamond;
+                    break;
+                case 4:
+                    listaItens[i].tipo = Emerald;
+                    break;
+            }
+            break; // criar só 1 item por vez, não 30 de uma vez
+        }
+    }
+}
+
+                for(int i = 0; i < MAX_ITENS; i++){
+    // Só mexe no item se ele estiver ativo na tela
+    if(listaItens[i].ativo == 1) {
+        
+        // GRAVIDADE: Aumentando o eixo Y para ele descer
+        listaItens[i].hitBox.y += (GetFrameTime() * 65) * listaItens[i].tipo.fallspd;
+
+        // DESENHO: Desenha o sprite do minério na posição X e Y da hitBox
+        DrawTexture(listaItens[i].tipo.sprite, listaItens[i].hitBox.x, listaItens[i].hitBox.y, WHITE);
+
+        // COLETA: Checa se o retângulo do item encostou no retângulo do jogador (plyrColl)
+        if(CheckCollisionRecs(listaItens[i].hitBox, plyrColl)) {
+            cs += listaItens[i].tipo.points;
+            listaItens[i].ativo = 0;
+        }
+
+        // LIMPEZA DE TELA: Se passou do fundo da janela (altura > 650)
+        if(listaItens[i].hitBox.y > 650) {
+            listaItens[i].ativo = 0;
+        }
+    }
+}
             
             }
         EndDrawing();

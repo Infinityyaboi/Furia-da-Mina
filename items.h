@@ -12,6 +12,12 @@ typedef struct{
     Texture2D sprite;
 } Ore;
 
+typedef struct{
+    Rectangle hitBox;
+    int ativo;
+    Ore tipo;
+} ItemCaindo;
+
 // Bombs
 
 // Health Potion
