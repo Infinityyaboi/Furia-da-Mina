@@ -28,13 +28,13 @@ void main()
     float posX = 0;
     float posY = 0;
 
-#define MAX_ITEMS 30
+    #define MAX_ITENS 30
 
-    ItemCaindo items[MAX_ITEMS];
+    ItemCaindo listaItens[MAX_ITENS];
 
-    for (int i = 0; i < MAX_ITEMS; i++)
+    for (int i = 0; i < MAX_ITENS; i++)
     {
-        listaItems[i].ativo = 0;
+        listaItens[i].ativo = 0;
     }
 
     float timerSpawn = 0;
@@ -99,7 +99,7 @@ void main()
                     Ruby.sprite = LoadTexture("sprites/Ruby.png");
                     Diamond.sprite = LoadTexture("sprites/Diamond.png");
                     Emerald.sprite = LoadTexture("sprites/Emerald.png");
-                    Bomb.sprite = LoadTexture("sprites/Bomb.png");
+                    Bomb.sprite = LoadTexture("sprites/dynamite.png");
                 }
                 init = 1;
             }
@@ -123,7 +123,7 @@ void main()
                 reset_pos();
                 life = 3; // restaura a vida do jogador
                 cs = 0;     // reseta a pontuação
-                for (int i = 0; i < MAX_ITEMS; i++)
+                for (int i = 0; i < MAX_ITENS; i++)
                 {
                     listaItens[i].ativo = 0; // desativa todos os itens na tela
                 }
@@ -138,7 +138,7 @@ void main()
             // Soma o tempo que passou desde o último frame
             timerSpawn += GetFrameTime();
 
-            float tempoLimite = 1.0f - (cs / 5000.0f); //tempo de spawn diminui com a pontuação, mas não pode ser menor que 0.25 segundos
+            float tempoLimite = 1.0f - (cs / 50000.0f); //tempo de spawn diminui com a pontuação, mas não pode ser menor que 0.25 segundos
             if(tempoLimite < 0.25f) {
                 tempoLimite = 0.25f;
             }   
@@ -193,7 +193,7 @@ void main()
                 if (listaItens[i].ativo == 1)
                 {
 
-                    float multiplicadorVel = 1.0f + (cs / 50000.0f) * 0.1f; // Aumenta a velocidade de queda com base na pontuação
+                    float multiplicadorVel = 1.0f + (cs / 5000.0f) * 0.1f; // Aumenta a velocidade de queda com base na pontuação
                     // GRAVIDADE: Aumentando o eixo Y para ele descer
                     listaItens[i].hitBox.y += (GetFrameTime() * 65) * listaItens[i].tipo.fallspd * multiplicadorVel;
 
@@ -247,20 +247,13 @@ void main()
     CloseWindow();
 }
 
-// items deven cair mais rapido com a quantidade de pontos
-
-// Mais items devem cair com mais pontos
-
-// Codigo para determinar quantos items estão caindo
-
-// Codigo para deletar items coletados ou fora de tela, para não lagar o jogo
-
-// Codigo para spawnar items
-
-// Codigo para cair items, e aumentar a velocidade
+// [FEITO] items deven cair mais rapido com a quantidade de pontos
+// [FEITO] Mais items devem cair com mais pontos
+// [FEITO] Codigo para determinar quantos items estão caindo
+// [FEITO] Codigo para deletar items coletados ou fora de tela, para não lagar o jogo
+// [FEITO] Codigo para spawnar items
+// [FEITO] Codigo para cair items, e aumentar a velocidade
 
 // Codigo para manter os pontos 1/2
-
 // Codigo para salvar o high score
-
 // Leaderboard de score
