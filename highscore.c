@@ -4,7 +4,7 @@
 #include <math.h>
 #include <raylib.h>
 #include "highscore.h"
-#pragma once
+
 
 
 

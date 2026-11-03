@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <raylib.h>
-#include <menu.h>
+#include "menu.h"
 #pragma once
 
 Button start = {{0}, {500, 325}, 32, 24};

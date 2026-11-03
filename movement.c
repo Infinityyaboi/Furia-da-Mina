@@ -4,7 +4,7 @@
 #include <math.h>
 #include <raylib.h>
 #include "movement.h"
-#pragma once
+
 
 Vector2 playerPos = {500, 450};
 float moment = 0;
