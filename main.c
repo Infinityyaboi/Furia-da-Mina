@@ -168,8 +168,8 @@ void main()
                         // Começa lá no topo, um pouco acima da tela (-50) para cair suave
                         listaItens[i].hitBox.y = -50;
                         // Tamanho da caixa de colisão do item (largura e altura)
-                        listaItens[i].hitBox.width = 40;
-                        listaItens[i].hitBox.height = 40;
+                        listaItens[i].hitBox.width = 50;
+                        listaItens[i].hitBox.height = 50;
 
                         // Sorteando qual minério vai cair
                         int sorteio = GetRandomValue(1, 5); // 1 a 4 para os minérios, 5 para a bomba
@@ -207,8 +207,8 @@ void main()
                     listaItens[i].hitBox.y += (GetFrameTime() * 65) * listaItens[i].tipo.fallspd * multiplicadorVel;
 
                     // DESENHO: Desenha o sprite do minério na posição X e Y da hitBox
-                    DrawTexture(listaItens[i].tipo.sprite, listaItens[i].hitBox.x, listaItens[i].hitBox.y, WHITE);
-
+                    Rectangle recorteOriginal = {0.0f, 0.0f, (float)listaItens[i].tipo.sprite.width, (float)listaItens[i].tipo.sprite.height};
+                    DrawTexturePro(listaItens[i].tipo.sprite, recorteOriginal, listaItens[i].hitBox, (Vector2){0, 0}, 0.0f, WHITE);
                     // COLETA: Checa se o retângulo do item encostou no retângulo do jogador (plyrColl)
                     if (CheckCollisionRecs(listaItens[i].hitBox, plyrColl))
                     {
