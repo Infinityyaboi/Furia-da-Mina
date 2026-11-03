@@ -15,6 +15,9 @@ int cs = 0;
 int gameover = 0;
 Texture2D p;
 Texture2D w;
+Texture2D foreground;
+Texture2D background;
+
 
 void main()
 {
@@ -61,6 +64,8 @@ void main()
                 {
                     UnloadTexture(p);
                     UnloadTexture(w);
+                    UnloadTexture(foreground);
+                    UnloadTexture(background);
                     UnloadTexture(Gold.sprite);
                     UnloadTexture(Ruby.sprite);
                     UnloadTexture(Diamond.sprite);
@@ -93,6 +98,8 @@ void main()
                 }
                 if (p.id == 0)
                 {
+                    foreground = LoadTexture("sprites/Background/Cave_fore.png");
+                    background = LoadTexture("sprites/Background/Cave_back.png");
                     p = LoadTexture("sprites/player.png");
                     w = LoadTexture("sprites/wheels.png");
                     Gold.sprite = LoadTexture("sprites/Gold.png");
@@ -106,7 +113,6 @@ void main()
 
             ClearBackground(RAYWHITE);
 
-            DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, BLACK);
             // 0,0 coordinate
             DrawRectangle(0, 0, 20, 20, RED);
 
@@ -129,7 +135,10 @@ void main()
                 }
             }
             move(cs);
+            DrawBackground(background);
+            DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, BLACK);
             DrawPlayer(p, w, cs);
+            DrawForeground(foreground);
             // movement test
             // DrawRectangle(posX, posY,20, 20, BLUE);
             // posX += GetFrameTime();

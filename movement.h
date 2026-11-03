@@ -11,4 +11,8 @@ void move(int s);
 
 void DrawPlayer(Texture2D player, Texture2D wheel, int s);
 
+void DrawBackground(Texture2D b);
+
+void DrawForeground(Texture2D f);
+
 void reset_pos();
