@@ -9,11 +9,12 @@
 
 //Ores
 
-Ore Gold = {500, 1.0f, {0}};
-Ore Ruby = {1000, 2.0f, {0}};
-Ore Diamond = {1500, 2.5f, {0}};
-Ore Emerald = {2500, 3.5f, {0}};
-Ore Bomb = {0, 1.0f, {0}};
+Ore Gold = {500, 1.0f, {0}, 0};
+Ore Ruby = {1000, 2.0f, {0}, 0};
+Ore Diamond = {1500, 2.5f, {0}, 0};
+Ore Emerald = {2500, 3.5f, {0}, 0};
+Ore Bomb = {0, 1.0f, {0}, 0};
+
 
 ItemCaindo listaItens[MAX_ITENS];
 
@@ -92,10 +93,11 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl){
                     float multiplicadorVel = 1.0f + (*cs / 5000.0f) * 0.1f; // Aumenta a velocidade de queda com base na pontuação
                     // GRAVIDADE: Aumentando o eixo Y para ele descer
                     listaItens[i].hitBox.y += (GetFrameTime() * 65) * listaItens[i].tipo.fallspd * multiplicadorVel;
+                    listaItens[i].tipo.rot += 2;
 
                     // DESENHO: Desenha o sprite do minério na posição X e Y da hitBox
                     Rectangle recorteOriginal = {0.0f, 0.0f, (float)listaItens[i].tipo.sprite.width, (float)listaItens[i].tipo.sprite.height};
-                    DrawTexturePro(listaItens[i].tipo.sprite, recorteOriginal, listaItens[i].hitBox, (Vector2){0, 0}, 0.0f, WHITE);
+                    DrawTexturePro(listaItens[i].tipo.sprite, recorteOriginal, listaItens[i].hitBox, (Vector2){16, 16}, listaItens[i].tipo.rot, WHITE);
                     // COLETA: Checa se o retângulo do item encostou no retângulo do jogador (plyrColl)
                     if (CheckCollisionRecs(listaItens[i].hitBox, plyrColl))
                     {

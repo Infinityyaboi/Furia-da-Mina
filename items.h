@@ -10,6 +10,7 @@ typedef struct{
     int points;
     float fallspd;
     Texture2D sprite;
+    float rot;
 } Ore;
 
 typedef struct{
