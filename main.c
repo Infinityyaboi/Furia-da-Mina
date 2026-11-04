@@ -26,6 +26,7 @@ void resetGame(){
         reset_pos();
         life = 3; // restaura a vida do jogador
         cs = 0;     // reseta a pontuação
+        gameover = 0;
         freeze = 0;
         clearItems();
     }
