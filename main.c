@@ -64,6 +64,7 @@ void main()
                     start.texture = LoadTexture("sprites/buttons/butstart.png");
                     controls.texture = LoadTexture("sprites/buttons/butcontrols.png");
                     leave.texture = LoadTexture("sprites/buttons/butexit.png");
+                    credits.texture = LoadTexture("sprites/buttons/butcredits.png");
                 }
                 if (p.id > 0){
                     UnloadTexture(p);
@@ -95,6 +96,9 @@ void main()
 
             if (load_button(&controls, 3) == 1 || IsKeyPressed(KEY_C)){
                 menu = 2;
+            }
+            if(load_button(&credits, 3) == 1){
+                
             }
             if(load_button(&leave, 3) == 1){
                 CloseWindow();

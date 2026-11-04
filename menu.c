@@ -8,6 +8,7 @@
 
 Button start = {{0}, {500, 325}, 32, 24};
 Button controls = {{0},{450, 400}, 64, 24};
+Button credits = {{0}, {450, 475}, 64, 24};
 Button leave = {{0}, {500, 550}, 32, 24}; 
 Button gamePause = {{0},{1100,20},24, 24};
 Button gameResume = {{0}, {470, 200}, 64, 24};

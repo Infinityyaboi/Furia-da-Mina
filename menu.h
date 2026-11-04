@@ -15,6 +15,7 @@ typedef struct{
 
 extern Button start;
 extern Button controls;
+extern Button credits;
 extern Button leave;
 extern Button gameResume;
 extern Button gameRestart;
