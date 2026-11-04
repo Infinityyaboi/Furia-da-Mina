@@ -52,7 +52,7 @@ void main()
     while (!WindowShouldClose()){
 
         // caixa de collisão do jogador
-        Rectangle plyrColl = {playerPos.x, playerPos.y + 50, (32.0 * 3.5), ((32.0 * 3.5) - 50.0)};
+        Rectangle plyrColl = {playerPos.x + 20, playerPos.y + 50, (32.0 * 3.5) - 20, ((32.0 * 3.5) - 50.0)};
 
         BeginDrawing();
 
@@ -98,7 +98,7 @@ void main()
                 menu = 2;
             }
             if(load_button(&credits, 3) == 1){
-                
+
             }
             if(load_button(&leave, 3) == 1){
                 CloseWindow();
@@ -193,9 +193,11 @@ void main()
             DrawText(TextFormat("Use as setas ou teclas A e D para se mover!", cs), 210, 60, 30, WHITE);
             DrawText(TextFormat("Colete minerios e evite as bombas", cs), 280, 120, 30, WHITE);
             DrawText(TextFormat("Ouro vale 500, Ruby 1000, Diamante 15000 e Esmeralda 25000", cs), 230, 180, 20, WHITE);
-            DrawText(TextFormat("Use Poções para recuperar vida", cs), 280, 230, 30, WHITE);
+            DrawText(TextFormat("Use consegue recuperar vida com pontos", cs), 260, 230, 30, WHITE);
             DrawText(TextFormat("O Ima pode ser usado para atrair items boms", cs), 230, 280, 30, WHITE);
             DrawText(TextFormat("Começa com 3 vidas", cs), 400, 340, 30, WHITE);
+            DrawText(TextFormat("Collete o escudo para defender contra um ataque", cs), 200, 390, 30, WHITE);
+
 
             if(load_button(&leave, 3) == 1){
                 menu = 0;

@@ -26,11 +26,12 @@ void ItemsStart(){
 
 // Bombs
 
+// Escudo
+
 // Magnet
 
 float timerSpawn = 0;
 
-// Speed Potion
 
 float getTimeLimit(int cs){
     timerSpawn += GetFrameTime();
