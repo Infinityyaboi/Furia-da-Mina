@@ -27,3 +27,11 @@ extern Ore Ruby;
 extern Ore Diamond;
 extern Ore Emerald;
 extern Ore Bomb;
+
+void ItemsStart();
+
+float getTimeLimit(int cs);
+
+void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl);
+
+void clearItems();

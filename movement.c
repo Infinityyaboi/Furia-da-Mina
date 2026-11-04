@@ -12,7 +12,7 @@ int flip = 32;
 float rot = 0;
 float rotrate = 15;
 int spr = 0;
-int sway = 0;
+
 
 
 void move(int s){
@@ -81,27 +81,21 @@ void move(int s){
 //Player sprite is 32x32
 
 void DrawBackground(Texture2D b){
-    DrawTextureEx(b, (Vector2){(-50 +sway) ,0}, 0, 0.5f, WHITE);
+    DrawTextureEx(b, (Vector2){(-50) ,0}, 0, 0.5f, WHITE);
 }
 
 void DrawForeground(Texture2D f){
-    DrawTextureEx(f, (Vector2){(-50 +sway) , 460}, 0, 0.5f, WHITE);
+    DrawTextureEx(f, (Vector2){(-50) , 460}, 0, 0.5f, WHITE);
 }
 
 void DrawPlayer(Texture2D player, Texture2D wheel, int s){
     if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
             flip = -32;
             rot -= 15;
-            if(sway >= -100 && sway <= 0){
-                sway += 10;
-            }
     }
         if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
             flip = 32;
             rot += 15;
-            if(sway >= -1000 && sway <= 0){
-                sway -= 10;
-            }
     }
     
     //Player refs
