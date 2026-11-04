@@ -43,7 +43,8 @@ float getTimeLimit(int cs){
 }
 
 
-void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl){
+void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f){
+    if(f == 0){
     if (timerSpawn >= tl){
                 timerSpawn = 0.0f; // Zera o cronômetro para contar o próximo segundo
 
@@ -83,34 +84,29 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl){
                     }
                 }
             }
+    }
 
     for (int i = 0; i < MAX_ITENS; i++)
             {
                 // Só mexe no item se ele estiver ativo na tela
                 if (listaItens[i].ativo == 1)
                 {
-
+                    if(f == 0){
                     float multiplicadorVel = 1.0f + (*cs / 5000.0f) * 0.1f; // Aumenta a velocidade de queda com base na pontuação
                     // GRAVIDADE: Aumentando o eixo Y para ele descer
                     listaItens[i].hitBox.y += (GetFrameTime() * 65) * listaItens[i].tipo.fallspd * multiplicadorVel;
                     listaItens[i].tipo.rot += listaItens[i].tipo.rotRate;
-
+                    }
                     // DESENHO: Desenha o sprite do minério na posição X e Y da hitBox
                     Rectangle recorteOriginal = {0.0f, 0.0f, (float)listaItens[i].tipo.sprite.width, (float)listaItens[i].tipo.sprite.height};
                     DrawTexturePro(listaItens[i].tipo.sprite, recorteOriginal, listaItens[i].hitBox, (Vector2){16, 16}, listaItens[i].tipo.rot, WHITE);
                     // COLETA: Checa se o retângulo do item encostou no retângulo do jogador (plyrColl)
                     if (CheckCollisionRecs(listaItens[i].hitBox, plyrColl))
                     {
-                        if (listaItens[i].tipo.points == 0)
-                        {
-                            *life--;
-                            if (life <= 0)
-                            {
-                                *gameover = 1;
-                            }
+                        if (listaItens[i].tipo.points == 0){
+                            *life -= 1;
                         }
-                        else
-                        {
+                        else{
                             *cs += listaItens[i].tipo.points;
                         }
                         listaItens[i].ativo = 0;

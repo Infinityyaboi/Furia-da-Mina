@@ -15,7 +15,8 @@ int spr = 0;
 
 
 
-void move(int s){
+void move(int s, int f){
+    if(f == 0){
     if((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && playerPos.x >= 0){
         if(moment > 0){
             moment -= 0.07;
@@ -40,6 +41,7 @@ void move(int s){
         } else if(playerPos.x >= GetScreenWidth() - 112){
             moment = 0;
         }
+    }
     } else if(moment != 0.0f){
         moment *= 0.9f;
         rotrate *= 0.9f;
@@ -88,7 +90,8 @@ void DrawForeground(Texture2D f){
     DrawTextureEx(f, (Vector2){(-50) , 460}, 0, 0.5f, WHITE);
 }
 
-void DrawPlayer(Texture2D player, Texture2D wheel, int s){
+void DrawPlayer(Texture2D player, Texture2D wheel, int s, int f){
+    if(f == 0){
     if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
             flip = -32;
             rot -= 15;
@@ -96,6 +99,7 @@ void DrawPlayer(Texture2D player, Texture2D wheel, int s){
         if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
             flip = 32;
             rot += 15;
+    }
     }
     
     //Player refs
@@ -125,7 +129,6 @@ void DrawPlayer(Texture2D player, Texture2D wheel, int s){
     //wheel draw
     DrawTexturePro(wheel, org2, dest2, (Vector2) {dest2.width/2, dest2.height/2}, rot, WHITE);
     DrawTexturePro(wheel, org2, dest3, (Vector2) {dest3.width/2, dest3.height/2}, rot, WHITE);
-
 
 }
 

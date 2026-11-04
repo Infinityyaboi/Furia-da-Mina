@@ -18,6 +18,18 @@ Texture2D p;
 Texture2D w;
 Texture2D foreground;
 Texture2D background;
+Texture2D h1;
+int freeze = 0;
+
+void resetGame(){
+    if(menu == 1){
+        reset_pos();
+        life = 3; // restaura a vida do jogador
+        cs = 0;     // reseta a pontuação
+        freeze = 0;
+        clearItems();
+    }
+}
 
 
 void main()
@@ -54,6 +66,7 @@ void main()
                 if (p.id > 0){
                     UnloadTexture(p);
                     UnloadTexture(w);
+                    UnloadTexture(h1);
                     UnloadTexture(foreground);
                     UnloadTexture(background);
                     UnloadTexture(Gold.sprite);
@@ -61,6 +74,10 @@ void main()
                     UnloadTexture(Diamond.sprite);
                     UnloadTexture(Emerald.sprite);
                     UnloadTexture(Bomb.sprite);
+                    UnloadTexture(gameResume.texture);
+                    UnloadTexture(gameRestart.texture);
+                    UnloadTexture(gameMainMenu.texture);
+                    UnloadTexture(gamePause.texture);
                     p.id = 0;
                 }
 
@@ -84,10 +101,12 @@ void main()
         }
         else if (menu == 1){
             // game screen
+
             if (init == 0){
                 if (start.texture.id > 0){
                     UnloadTexture(start.texture);
                     UnloadTexture(controls.texture);
+                    UnloadTexture(leave.texture);
 
                     start.texture.id = 0;
                 }
@@ -101,6 +120,11 @@ void main()
                     Diamond.sprite = LoadTexture("sprites/Diamond.png");
                     Emerald.sprite = LoadTexture("sprites/Emerald.png");
                     Bomb.sprite = LoadTexture("sprites/dynamite.png");
+                    h1 = LoadTexture("sprites/Hearts.png");
+                    gameResume.texture = LoadTexture("sprites/buttons/butresume.png");
+                    gameRestart.texture = LoadTexture("sprites/buttons/butrestart.png");
+                    gameMainMenu.texture = LoadTexture("sprites/buttons/butMainMenu.png");
+                    gamePause.texture = LoadTexture("sprites/buttons/butpause.png");
                 }
                 init = 1;
             }
@@ -108,33 +132,59 @@ void main()
             ClearBackground(RAYWHITE);
 
             // 0,0 coordinate
-            DrawRectangle(0, 0, 20, 20, RED);
 
             
-            if (IsKeyPressed(KEY_G)){
-                gameover = 1;
-            }
 
             
-            if (IsKeyPressed(KEY_R)){
-                reset_pos();
-                life = 3; // restaura a vida do jogador
-                cs = 0;     // reseta a pontuação
-                clearItems();
-            }
-            move(cs);
+            move(cs, freeze);
             DrawBackground(background);
-            DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, BLACK);
-            DrawPlayer(p, w, cs);
+            DrawPlayer(p, w, cs, freeze);
 
             // Soma o tempo que passou desde o último frame
             float tl = getTimeLimit(cs);
             // Se passou o tempo limite, tenta criar um item novo
-            itemLogic(&cs, plyrColl, &life, &gameover, tl);
+            itemLogic(&cs, plyrColl, &life, &gameover, tl, freeze);
 
+            DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, (Color){180, 167, 232, 240});
             DrawForeground(foreground);
+            DrawHealth(life, &gameover, h1);
+
+            if(freeze == 1 && gameover == 0){
+                DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
+                DrawRectangle(350, 160, 420, 300, (Color){46, 52, 64, 255});
+                if(load_button(&gameResume, 3) == 1 || IsKeyPressed(KEY_P)){
+                    freeze = 0;
+                }
+                if(load_button(&gameRestart, 3) == 1){
+                    resetGame();
+                }
+                if(load_button(&gameMainMenu, 3) == 1 || IsKeyPressed(KEY_M)){
+                    resetGame();
+                    menu = 0;
+                    init = 0;
+                }
+            }else if(freeze == 1 && gameover == 1){
+                DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
+            }
+
+            if (IsKeyPressed(KEY_G)){
+                freeze = 1;
+                gameover = 1;
+            }
+            if(load_button(&gamePause, 1.5) == 1 || IsKeyPressed(KEY_P)){
+                freeze = 1;
+            }
+            if (IsKeyPressed(KEY_R)){
+                resetGame();
+            }
         }else if(menu == 2){
             ClearBackground((Color){46, 52, 64, 255});
+            DrawText(TextFormat("Use as setas ou teclas A e D para se mover!", cs), 210, 60, 30, WHITE);
+            DrawText(TextFormat("Colete minerios e evite as bombas", cs), 280, 120, 30, WHITE);
+            DrawText(TextFormat("Ouro vale 500, Ruby 1000, Diamante 15000 e Esmeralda 25000", cs), 230, 180, 20, WHITE);
+            DrawText(TextFormat("Use Poções para recuperar vida", cs), 280, 230, 30, WHITE);
+            DrawText(TextFormat("O Ima pode ser usado para atrair items boms", cs), 230, 280, 30, WHITE);
+            DrawText(TextFormat("Começa com 3 vidas", cs), 400, 340, 30, WHITE);
 
             if(load_button(&leave, 3) == 1){
                 menu = 0;
@@ -158,6 +208,11 @@ void main()
         UnloadTexture(Diamond.sprite);
         UnloadTexture(Emerald.sprite);
         UnloadTexture(Bomb.sprite);
+        UnloadTexture(gameResume.texture);
+        UnloadTexture(gameRestart.texture);
+        UnloadTexture(gameMainMenu.texture);
+        UnloadTexture(foreground);
+        UnloadTexture(background);
     }
 
     CloseAudioDevice();
