@@ -126,12 +126,13 @@ void main()
             DrawBackground(background);
             DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, BLACK);
             DrawPlayer(p, w, cs);
-            DrawForeground(foreground);
 
             // Soma o tempo que passou desde o último frame
             float tl = getTimeLimit(cs);
             // Se passou o tempo limite, tenta criar um item novo
             itemLogic(&cs, plyrColl, &life, &gameover, tl);
+
+            DrawForeground(foreground);
         }else if(menu == 2){
             ClearBackground((Color){46, 52, 64, 255});
 

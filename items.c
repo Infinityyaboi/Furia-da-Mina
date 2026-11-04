@@ -9,11 +9,11 @@
 
 //Ores
 
-Ore Gold = {500, 1.0f, {0}, 0};
-Ore Ruby = {1000, 2.0f, {0}, 0};
-Ore Diamond = {1500, 2.5f, {0}, 0};
-Ore Emerald = {2500, 3.5f, {0}, 0};
-Ore Bomb = {0, 1.0f, {0}, 0};
+Ore Gold = {500, 1.0f, {0}, 0, 2};
+Ore Ruby = {1000, 2.0f, {0}, 0, 3};
+Ore Diamond = {1500, 2.5f, {0}, 0, 4};
+Ore Emerald = {2500, 3.5f, {0}, 0, 5};
+Ore Bomb = {0, 1.0f, {0}, 0, 2};
 
 
 ItemCaindo listaItens[MAX_ITENS];
@@ -93,7 +93,7 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl){
                     float multiplicadorVel = 1.0f + (*cs / 5000.0f) * 0.1f; // Aumenta a velocidade de queda com base na pontuação
                     // GRAVIDADE: Aumentando o eixo Y para ele descer
                     listaItens[i].hitBox.y += (GetFrameTime() * 65) * listaItens[i].tipo.fallspd * multiplicadorVel;
-                    listaItens[i].tipo.rot += 2;
+                    listaItens[i].tipo.rot += listaItens[i].tipo.rotRate;
 
                     // DESENHO: Desenha o sprite do minério na posição X e Y da hitBox
                     Rectangle recorteOriginal = {0.0f, 0.0f, (float)listaItens[i].tipo.sprite.width, (float)listaItens[i].tipo.sprite.height};

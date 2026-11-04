@@ -11,6 +11,7 @@ typedef struct{
     float fallspd;
     Texture2D sprite;
     float rot;
+    float rotRate;
 } Ore;
 
 typedef struct{
