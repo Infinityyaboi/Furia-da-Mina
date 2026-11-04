@@ -33,7 +33,6 @@ void move(int s, int f){
         if(moment < 0){
             moment += 0.07;
         }
-
         if(playerPos.x < GetScreenWidth() - 112 && moment <= 1){
             moment += 0.03;
         } else if(playerPos.x < GetScreenWidth() - 112 && moment == 1){
@@ -41,7 +40,6 @@ void move(int s, int f){
         } else if(playerPos.x >= GetScreenWidth() - 112){
             moment = 0;
         }
-    }
     } else if(moment != 0.0f){
         moment *= 0.9f;
         rotrate *= 0.9f;
@@ -50,7 +48,6 @@ void move(int s, int f){
         }else if(moment < 0.0f){
             rot += rotrate;
         }
-
         if(fabsf(moment) <= 0.001f){
             moment = 0;
             rotrate = 15;
@@ -66,7 +63,7 @@ void move(int s, int f){
     } else if(s > 50000){
         playerPos.x += ((GetFrameTime() * (10 * moment)) * 15);
     } 
-    
+}
 
     if(playerPos.x <= 0){
         playerPos.x = 0;
