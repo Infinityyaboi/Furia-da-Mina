@@ -13,7 +13,7 @@ Ore Gold = {500, 1.0f, {0}, 0, 2};
 Ore Ruby = {1000, 2.0f, {0}, 0, 3};
 Ore Diamond = {1500, 2.5f, {0}, 0, 4};
 Ore Emerald = {2500, 3.5f, {0}, 0, 5};
-Ore Bomb = {0, 1.0f, {0}, 0, 2};
+Ore Bomb = {0, 1.5f, {0}, 0, 2.5};
 
 
 ItemCaindo listaItens[MAX_ITENS];
