@@ -19,6 +19,7 @@ Texture2D w;
 Texture2D foreground;
 Texture2D background;
 Texture2D h1;
+int framecheck = 0;
 int freeze = 0;
 
 void resetGame(){
@@ -137,6 +138,7 @@ void main()
             
 
             
+
             move(cs, freeze);
             DrawBackground(background);
             DrawPlayer(p, w, cs, freeze);
@@ -148,14 +150,28 @@ void main()
 
             DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, (Color){180, 167, 232, 240});
             DrawForeground(foreground);
-            DrawHealth(life, &gameover, h1);
+            DrawHealth(life, &gameover, h1, &freeze);
+
+            if (IsKeyPressed(KEY_G)){
+                freeze = 1;
+                gameover = 1;
+            }
+            if(load_button(&gamePause, 1.5) == 1 || IsKeyPressed(KEY_P)){
+                freeze = 1;
+                framecheck = 0;
+            }
+            if (IsKeyPressed(KEY_R)){
+                resetGame();
+            }
 
             if(freeze == 1 && gameover == 0){
                 DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
                 DrawRectangle(350, 160, 420, 300, (Color){46, 52, 64, 255});
-                if(load_button(&gameResume, 3) == 1 || IsKeyPressed(KEY_P)){
+                if(load_button(&gameResume, 3) == 1 || (IsKeyPressed(KEY_P) && framecheck >= 1)){
                     freeze = 0;
+                    framecheck = 0;
                 }
+                framecheck++;
                 if(load_button(&gameRestart, 3) == 1){
                     resetGame();
                 }
@@ -168,16 +184,6 @@ void main()
                 DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
             }
 
-            if (IsKeyPressed(KEY_G)){
-                freeze = 1;
-                gameover = 1;
-            }
-            if(load_button(&gamePause, 1.5) == 1 || IsKeyPressed(KEY_P)){
-                freeze = 1;
-            }
-            if (IsKeyPressed(KEY_R)){
-                resetGame();
-            }
         }else if(menu == 2){
             ClearBackground((Color){46, 52, 64, 255});
             DrawText(TextFormat("Use as setas ou teclas A e D para se mover!", cs), 210, 60, 30, WHITE);

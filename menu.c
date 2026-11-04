@@ -51,7 +51,7 @@ int load_button(Button *butt, float size){
 
 
 
-void DrawHealth(int life, int *go, Texture2D h1){
+void DrawHealth(int life, int *go, Texture2D h1, int *f){
     Rectangle org1 = {0,0,10,11};
     Rectangle org2 = {10,0,10,11};
     Rectangle loc1 = {980, 20, org1.width * 3, org1.height * 3};
@@ -75,5 +75,6 @@ void DrawHealth(int life, int *go, Texture2D h1){
         DrawTexturePro(h1,org2,loc2,(Vector2){0,0},0, WHITE);
         DrawTexturePro(h1,org2,loc3,(Vector2){0,0},0, WHITE);
         *go = 1;
+        *f = 1;
     }
 }
