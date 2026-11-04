@@ -7,6 +7,8 @@
 #pragma once
 
 Button start = {{0}, {500, 325}, 32, 24};
+Button controls = {{0},{450, 400}, 64, 24};
+Button leave = {{0}, {500, 550}, 32, 24}; 
 Color shift = {155, 169, 196, 180};
 
 int button_pressed(Button *butt, float h, float w){

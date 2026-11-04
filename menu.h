@@ -14,6 +14,8 @@ typedef struct{
 }Button;
 
 extern Button start;
+extern Button controls;
+extern Button leave;
 
 int button_pressed(Button *butt, float h, float w);
 

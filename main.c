@@ -42,18 +42,16 @@ void main()
 
         BeginDrawing();
 
-        if (menu == 0)
-        {
+        if (menu == 0){
             // main menu
 
-            if (init == 0)
-            {
-                if (start.texture.id == 0)
-                {
+            if (init == 0){
+                if (start.texture.id == 0){
                     start.texture = LoadTexture("sprites/buttons/butstart.png");
+                    controls.texture = LoadTexture("sprites/buttons/butcontrols.png");
+                    leave.texture = LoadTexture("sprites/buttons/butexit.png");
                 }
-                if (p.id > 0)
-                {
+                if (p.id > 0){
                     UnloadTexture(p);
                     UnloadTexture(w);
                     UnloadTexture(foreground);
@@ -71,25 +69,29 @@ void main()
             ClearBackground((Color){46, 52, 64, 255});
             // load_big_button(&start, 1);
 
-            if (load_button(&start, 3) == 1 || IsKeyPressed(KEY_S))
-            {
+            if (load_button(&start, 3) == 1 || IsKeyPressed(KEY_S)){
                 menu = 1;
                 init = 0;
             }
+
+            if (load_button(&controls, 3) == 1 || IsKeyPressed(KEY_C)){
+                menu = 2;
+            }
+            if(load_button(&leave, 3) == 1){
+                CloseWindow();
+            }
+
         }
-        else if (menu == 1)
-        {
+        else if (menu == 1){
             // game screen
-            if (init == 0)
-            {
-                if (start.texture.id > 0)
-                {
+            if (init == 0){
+                if (start.texture.id > 0){
                     UnloadTexture(start.texture);
+                    UnloadTexture(controls.texture);
 
                     start.texture.id = 0;
                 }
-                if (p.id == 0)
-                {
+                if (p.id == 0){
                     foreground = LoadTexture("sprites/Background/Cave_fore.png");
                     background = LoadTexture("sprites/Background/Cave_back.png");
                     p = LoadTexture("sprites/player.png");
@@ -130,6 +132,12 @@ void main()
             float tl = getTimeLimit(cs);
             // Se passou o tempo limite, tenta criar um item novo
             itemLogic(&cs, plyrColl, &life, &gameover, tl);
+        }else if(menu == 2){
+            ClearBackground((Color){46, 52, 64, 255});
+
+            if(load_button(&leave, 3) == 1){
+                menu = 0;
+            }
         }
             
         EndDrawing();
@@ -137,6 +145,8 @@ void main()
     if (start.texture.id > 0)
     {
         UnloadTexture(start.texture);
+        UnloadTexture(controls.texture);
+        UnloadTexture(leave.texture);
     }
     if (p.id > 0)
     {
