@@ -210,9 +210,9 @@ void main()
                 DrawText(TextFormat("Final Score: %d", cs), 350, 270, 25, WHITE);
 
                 // fix this
-                if(GuiTextBox((Rectangle) {350, 370}, &fsn, 25, editmode)){
-                    editmode = !editmode;
-                }
+                //if(GuiTextBox((Rectangle) {350, 370}, &fsn, 25, editmode)){
+                //    editmode = !editmode;
+                //}
 
                 if(load_button(&submit, 3) == 1){
                     menu = 4;
@@ -239,14 +239,14 @@ void main()
             ClearBackground((Color){46, 52, 64, 255});
             DrawText(TextFormat("Paulo André Lopes de Almeida", cs), 210, 60, 30, WHITE);
             DrawText(TextFormat("Enzo", cs), 210, 120, 30, WHITE);
-            DrawText(TextFormat("", cs), 210, 180, 30, WHITE);
+            DrawText(TextFormat("@Rintrynter", cs), 210, 180, 30, WHITE);
             DrawText(TextFormat("Minecraft", cs), 210, 240, 30, WHITE);
 
             if(load_button(&leave, 3) == 1){
                 menu = 0;
             }
         }else if (menu == 4){
-            
+            // Leaderboard
             if (init == 0){
                 if (hsRestart.texture.id == 0){
                     hsRestart.texture = LoadTexture("sprites/buttons/butrestart.png");
