@@ -14,6 +14,9 @@ Button gamePause = {{0},{1100,20},24, 24};
 Button gameResume = {{0}, {470, 200}, 64, 24};
 Button gameRestart = {{0}, {470, 280}, 64, 24};
 Button gameMainMenu = {{0}, {470, 360}, 64, 24};
+Button submit = {{0}, {470, 400}, 64, 24};
+Button hsRestart = {{0}, {470, 475}, 64, 24};
+Button hsMainMenu = {{0}, {470, 550}, 64, 24};
 
 Color shift = {155, 169, 196, 180};
 

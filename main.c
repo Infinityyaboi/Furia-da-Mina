@@ -3,10 +3,14 @@
 #include <string.h>
 #include <raylib.h>
 #include <math.h>
+#include <stdbool.h>
 #include "items.h"
 #include "movement.h"
 #include "highscore.h"
 #include "menu.h"
+
+#define RAYGUY_IMPLEMENTATION
+#include "raygui.h"
 
 
 int init = 0;
@@ -22,6 +26,8 @@ Texture2D h1;
 int framecheck = 0;
 int freeze = 0;
 int hittrue = 0;
+bool editmode = false;
+char fsn[50] = "NAME";
 
 void resetGame(){
     if(menu == 1){
@@ -82,9 +88,14 @@ void main()
                     UnloadTexture(gameRestart.texture);
                     UnloadTexture(gameMainMenu.texture);
                     UnloadTexture(gamePause.texture);
+                    UnloadTexture(submit.texture);
                     p.id = 0;
                 }
-
+                if(hsRestart.texture.id > 0){
+                    UnloadTexture(hsRestart.texture);
+                    UnloadTexture(hsMainMenu.texture);
+                    hsRestart.texture.id = 0;
+                }
                 init = 1;
             }
             ClearBackground((Color){46, 52, 64, 255});
@@ -93,6 +104,7 @@ void main()
             if (load_button(&start, 3) == 1 || IsKeyPressed(KEY_S)){
                 menu = 1;
                 init = 0;
+                resetGame();
             }
 
             if (load_button(&controls, 3) == 1 || IsKeyPressed(KEY_C)){
@@ -132,6 +144,12 @@ void main()
                     gameRestart.texture = LoadTexture("sprites/buttons/butrestart.png");
                     gameMainMenu.texture = LoadTexture("sprites/buttons/butMainMenu.png");
                     gamePause.texture = LoadTexture("sprites/buttons/butpause.png");
+                    submit.texture = LoadTexture("sprites/buttons/butsubmit.png");
+                }
+                if(hsRestart.texture.id > 0){
+                    UnloadTexture(hsRestart.texture);
+                    UnloadTexture(hsMainMenu.texture);
+                    hsRestart.texture.id = 0;
                 }
                 init = 1;
             }
@@ -165,7 +183,7 @@ void main()
                 freeze = 1;
                 framecheck = 0;
             }
-            if (IsKeyPressed(KEY_R)){
+            if (IsKeyPressed(KEY_R) && gameover == 0){
                 resetGame();
             }
 
@@ -187,6 +205,18 @@ void main()
                 }
             }else if(freeze == 1 && gameover == 1){
                 DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
+                DrawRectangle(330, 240, 450, 240, (Color){46, 52, 64, 255});
+                DrawText(TextFormat("Final Score: %d", cs), 350, 270, 25, WHITE);
+
+                // fix this
+                if(GuiTextBox((Rectangle) {350, 370}, &fsn, 25, editmode)){
+                    editmode = !editmode;
+                }
+
+                if(load_button(&submit, 3) == 1){
+                    menu = 4;
+                    init = 0;
+                }
             }
 
         }else if(menu == 2){
@@ -214,6 +244,46 @@ void main()
             if(load_button(&leave, 3) == 1){
                 menu = 0;
             }
+        }else if (menu == 4){
+            
+            if (init == 0){
+                if (hsRestart.texture.id == 0){
+                    hsRestart.texture = LoadTexture("sprites/buttons/butrestart.png");
+                    hsMainMenu.texture = LoadTexture("sprites/buttons/butMainMenu.png");
+                }
+                if (p.id > 0){
+                    UnloadTexture(p);
+                    UnloadTexture(w);
+                    UnloadTexture(h1);
+                    UnloadTexture(foreground);
+                    UnloadTexture(background);
+                    UnloadTexture(Gold.sprite);
+                    UnloadTexture(Ruby.sprite);
+                    UnloadTexture(Diamond.sprite);
+                    UnloadTexture(Emerald.sprite);
+                    UnloadTexture(Bomb.sprite);
+                    UnloadTexture(gameResume.texture);
+                    UnloadTexture(gameRestart.texture);
+                    UnloadTexture(gameMainMenu.texture);
+                    UnloadTexture(gamePause.texture);
+                    UnloadTexture(submit.texture);
+                    p.id = 0;
+                }
+                init = 1;
+            }
+
+            ClearBackground((Color){46, 52, 64, 255});
+
+            if(load_button(&hsRestart,3) == 1 || IsKeyPressed(KEY_R)){
+                menu = 1;
+                init = 0;
+                resetGame();
+            }
+            if(load_button(&hsMainMenu,3) == 1 || IsKeyPressed(KEY_R)){
+                menu = 0;
+                init = 0;
+            }
+            
         }
             
         EndDrawing();
@@ -226,6 +296,7 @@ void main()
     }
     if (p.id > 0)
     {
+        UnloadTexture(h1);
         UnloadTexture(p);
         UnloadTexture(w);
         UnloadTexture(Gold.sprite);

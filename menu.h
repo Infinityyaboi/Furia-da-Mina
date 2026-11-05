@@ -21,6 +21,10 @@ extern Button gameResume;
 extern Button gameRestart;
 extern Button gameMainMenu;
 extern Button gamePause;
+extern Button submit;
+extern Button hsRestart;
+extern Button hsMainMenu;
+
 int button_pressed(Button *butt, float h, float w);
 
 int load_button(Button *butt, float size);
