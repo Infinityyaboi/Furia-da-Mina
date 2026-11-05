@@ -87,7 +87,9 @@ void DrawForeground(Texture2D f){
     DrawTextureEx(f, (Vector2){(-50) , 460}, 0, 0.5f, WHITE);
 }
 
-void DrawPlayer(Texture2D player, Texture2D wheel, int s, int f){
+int hitlag = 0;
+
+void DrawPlayer(Texture2D player, Texture2D wheel, int s, int f, int *h){
     if(f == 0){
     if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
             flip = -32;
@@ -120,7 +122,24 @@ void DrawPlayer(Texture2D player, Texture2D wheel, int s, int f){
     Rectangle dest3 = (Rectangle){(playerPos.x) + 26, (playerPos.y) + 105, org2.width * 3.5,org2.height * 3.5};
     
     //Player draw
-    DrawTexturePro(player, org1, dest1, (Vector2) {0, 0}, 0, WHITE);
+    if(hitlag == 0){
+        DrawTexturePro(player, org1, dest1, (Vector2) {0, 0}, 0, WHITE);
+    } else if(hitlag == 2){
+        DrawTexturePro(player, org1, dest1, (Vector2) {0, 0}, 0, WHITE);
+    } else if(hitlag == 4){
+        DrawTexturePro(player, org1, dest1, (Vector2) {0, 0}, 0, WHITE);
+    }else if(hitlag == 6){
+        DrawTexturePro(player, org1, dest1, (Vector2) {0, 0}, 0, WHITE);
+    } else if(hitlag == 8){
+        DrawTexturePro(player, org1, dest1, (Vector2) {0, 0}, 0, WHITE);
+    }
+    
+    if(*h == 1 && hitlag <= 9){
+        hitlag++;
+    } else{
+        hitlag = 0;
+        *h = 0;
+    }
     
 
     //wheel draw

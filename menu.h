@@ -25,4 +25,4 @@ int button_pressed(Button *butt, float h, float w);
 
 int load_button(Button *butt, float size);
 
-void DrawHealth(int life, int *go, Texture2D h1, int *f);
+void DrawHealth(int life, int *go, Texture2D h1, int *f, int *h);

@@ -49,16 +49,9 @@ int load_button(Button *butt, float size){
 }
 
 
+int hl = 0;
 
-
-
-void DrawHealth(int life, int *go, Texture2D h1, int *f){
-    Rectangle org1 = {0,0,10,11};
-    Rectangle org2 = {10,0,10,11};
-    Rectangle loc1 = {980, 20, org1.width * 3, org1.height * 3};
-    Rectangle loc2 = {1012, 20, org1.width * 3, org1.height * 3};
-    Rectangle loc3 = {1044, 20, org1.width * 3, org1.height * 3};
-
+void CheckHealth(int life, int **go, Texture2D h1, int **f, Rectangle org1, Rectangle org2, Rectangle loc1, Rectangle loc2, Rectangle loc3){
     if(life == 3){
         DrawTexturePro(h1,org1,loc1,(Vector2){0,0},0, WHITE);
         DrawTexturePro(h1,org1,loc2,(Vector2){0,0},0, WHITE);
@@ -75,7 +68,36 @@ void DrawHealth(int life, int *go, Texture2D h1, int *f){
         DrawTexturePro(h1,org2,loc1,(Vector2){0,0},0, WHITE);
         DrawTexturePro(h1,org2,loc2,(Vector2){0,0},0, WHITE);
         DrawTexturePro(h1,org2,loc3,(Vector2){0,0},0, WHITE);
-        *go = 1;
-        *f = 1;
+        **go = 1;
+        **f = 1;
     }
+}
+
+
+void DrawHealth(int life, int *go, Texture2D h1, int *f, int *h){
+    Rectangle org1 = {0,0,10,11};
+    Rectangle org2 = {10,0,10,11};
+    Rectangle loc1 = {980, 20, org1.width * 3, org1.height * 3};
+    Rectangle loc2 = {1012, 20, org1.width * 3, org1.height * 3};
+    Rectangle loc3 = {1044, 20, org1.width * 3, org1.height * 3};
+
+    if(hl == 0){
+        CheckHealth(life, &go, h1, &f, org1, org2, loc1, loc2, loc3);
+    } else if(hl == 2){
+        CheckHealth(life, &go, h1, &f, org1, org2, loc1, loc2, loc3);
+    } else if(hl == 4){
+        CheckHealth(life, &go, h1, &f, org1, org2, loc1, loc2, loc3);
+    }else if(hl == 6){
+        CheckHealth(life, &go, h1, &f, org1, org2, loc1, loc2, loc3);
+    } else if(hl == 8){
+        CheckHealth(life, &go, h1, &f, org1, org2, loc1, loc2, loc3);
+    }
+
+    if(*h == 1 && hl <= 9){
+        hl++;
+    } else{
+        hl = 0;
+        *h = 0;
+    }
+    
 }

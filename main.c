@@ -21,6 +21,7 @@ Texture2D background;
 Texture2D h1;
 int framecheck = 0;
 int freeze = 0;
+int hittrue = 0;
 
 void resetGame(){
     if(menu == 1){
@@ -98,7 +99,7 @@ void main()
                 menu = 2;
             }
             if(load_button(&credits, 3) == 1){
-
+                menu = 3;
             }
             if(load_button(&leave, 3) == 1){
                 CloseWindow();
@@ -145,16 +146,16 @@ void main()
 
             move(cs, freeze);
             DrawBackground(background);
-            DrawPlayer(p, w, cs, freeze);
+            DrawPlayer(p, w, cs, freeze, &hittrue);
 
             // Soma o tempo que passou desde o último frame
             float tl = getTimeLimit(cs);
             // Se passou o tempo limite, tenta criar um item novo
-            itemLogic(&cs, plyrColl, &life, &gameover, tl, freeze);
+            itemLogic(&cs, plyrColl, &life, &gameover, tl, freeze, &hittrue);
 
             DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, (Color){180, 167, 232, 240});
             DrawForeground(foreground);
-            DrawHealth(life, &gameover, h1, &freeze);
+            DrawHealth(life, &gameover, h1, &freeze, &hittrue);
 
             if (IsKeyPressed(KEY_G)){
                 freeze = 1;
@@ -189,6 +190,7 @@ void main()
             }
 
         }else if(menu == 2){
+            // menu de controles
             ClearBackground((Color){46, 52, 64, 255});
             DrawText(TextFormat("Use as setas ou teclas A e D para se mover!", cs), 210, 60, 30, WHITE);
             DrawText(TextFormat("Colete minerios e evite as bombas", cs), 280, 120, 30, WHITE);
@@ -198,6 +200,16 @@ void main()
             DrawText(TextFormat("Começa com 3 vidas", cs), 400, 340, 30, WHITE);
             DrawText(TextFormat("Collete o escudo para defender contra um ataque", cs), 200, 390, 30, WHITE);
 
+
+            if(load_button(&leave, 3) == 1){
+                menu = 0;
+            }
+        }else if (menu == 3){
+            ClearBackground((Color){46, 52, 64, 255});
+            DrawText(TextFormat("Paulo André Lopes de Almeida", cs), 210, 60, 30, WHITE);
+            DrawText(TextFormat("Enzo", cs), 210, 120, 30, WHITE);
+            DrawText(TextFormat("", cs), 210, 180, 30, WHITE);
+            DrawText(TextFormat("Minecraft", cs), 210, 240, 30, WHITE);
 
             if(load_button(&leave, 3) == 1){
                 menu = 0;

@@ -44,7 +44,7 @@ float getTimeLimit(int cs){
 }
 
 
-void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f){
+void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f, int *h){
     if(f == 0){
     if (timerSpawn >= tl){
                 timerSpawn = 0.0f; // Zera o cronômetro para contar o próximo segundo
@@ -106,6 +106,7 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, 
                     {
                         if (listaItens[i].tipo.points == 0){
                             *life -= 1;
+                            *h = 1;
                         }
                         else{
                             *cs += listaItens[i].tipo.points;
