@@ -49,9 +49,10 @@ void main()
     InitWindow(1150, 650, "Furia da Mina");
     InitAudioDevice();
 
+
+
     SetTargetFPS(30);
-    float posX = 0;
-    float posY = 0;
+    // load scores
 
     ItemsStart();
 
@@ -278,16 +279,19 @@ void main()
                 menu = 1;
                 init = 0;
                 resetGame();
+                // save scores
             }
             if(load_button(&hsMainMenu,3) == 1 || IsKeyPressed(KEY_R)){
                 menu = 0;
                 init = 0;
+                // save scores
             }
             
         }
             
         EndDrawing();
     }
+    // save scores
     if (start.texture.id > 0)
     {
         UnloadTexture(start.texture);
