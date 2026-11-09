@@ -39,6 +39,6 @@ void ItemsStart();
 
 float getTimeLimit(int cs);
 
-void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f, int *h);
+void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f, int *h, Sound shield, Sound hit, Sound collect, Sound magnet, Sound recover);
 
 void clearItems();

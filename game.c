@@ -32,6 +32,15 @@ int hittrue = 0;
 bool editmode = false;
 char fsn[50] = "NAME";
 
+Sound collect; 
+Sound sendscores;
+Sound hit;
+Sound death;
+Sound shield;
+Sound magnet;
+Sound recover;
+Sound buttonpress;
+
 void resetGame(){
     if(menu == 1){
         reset_pos();
@@ -39,6 +48,7 @@ void resetGame(){
         cs = 0;     // reseta a pontuação
         gameover = 0;
         freeze = 0;
+        framecheck = 0;
         clearItems();
     }
 }
@@ -53,12 +63,20 @@ void main()
     InitAudioDevice();
     score* head = NULL;
 
+    collect = LoadSound("sfx/got.wav");
+    sendscores = LoadSound("sfx/checkpoint.wav");
+    hit = LoadSound("sfx/bomb.wav");
+    death = LoadSound("sfx/death.wav");
+    shield = LoadSound("sfx/powerup.wav");
+    magnet = LoadSound("sfx/key.wav");
+    recover = LoadSound("sfx/shield.wav");
+    buttonpress = LoadSound("sfx/attack7.wav");
+
 
     SetTargetFPS(30);
     // load scores
 
     ItemsStart();
-
 
     while (!WindowShouldClose()){
 
@@ -66,6 +84,8 @@ void main()
         Rectangle plyrColl = {playerPos.x + 20, playerPos.y + 50, (32.0 * 3.5) - 20, ((32.0 * 3.5) - 50.0)};
         
         BeginDrawing();
+
+        
 
         if (menu == 0){
             // main menu
@@ -108,18 +128,22 @@ void main()
             // load_big_button(&start, 1);
 
             if (load_button(&start, 3) == 1 || IsKeyPressed(KEY_S)){
+                PlaySound(buttonpress);
                 menu = 1;
                 init = 0;
                 resetGame();
             }
 
             if (load_button(&controls, 3) == 1 || IsKeyPressed(KEY_C)){
+                PlaySound(buttonpress);
                 menu = 2;
             }
             if(load_button(&credits, 3) == 1){
+                PlaySound(buttonpress);
                 menu = 3;
             }
             if(load_button(&leave, 3) == 1){
+                PlaySound(buttonpress);
                 CloseWindow();
             }
 
@@ -178,7 +202,7 @@ void main()
             // Soma o tempo que passou desde o último frame
             float tl = getTimeLimit(cs);
             // Se passou o tempo limite, tenta criar um item novo
-            itemLogic(&cs, plyrColl, &life, &gameover, tl, freeze, &hittrue);
+            itemLogic(&cs, plyrColl, &life, &gameover, tl, freeze, &hittrue, shield, hit, collect, magnet, recover);
 
             DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, (Color){180, 167, 232, 240});
 
@@ -208,6 +232,7 @@ void main()
                 gameover = 1;
             }
             if(load_button(&gamePause, 1.5) == 1 || IsKeyPressed(KEY_P)){
+                PlaySound(buttonpress);
                 freeze = 1;
                 framecheck = 0;
             }
@@ -219,14 +244,17 @@ void main()
                 DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
                 DrawRectangle(350, 160, 420, 300, (Color){46, 52, 64, 255});
                 if(load_button(&gameResume, 3) == 1 || (IsKeyPressed(KEY_P) && framecheck >= 1)){
+                    PlaySound(buttonpress);
                     freeze = 0;
                     framecheck = 0;
                 }
                 framecheck++;
                 if(load_button(&gameRestart, 3) == 1){
+                    PlaySound(buttonpress);
                     resetGame();
                 }
                 if(load_button(&gameMainMenu, 3) == 1 || IsKeyPressed(KEY_M)){
+                    PlaySound(buttonpress);
                     resetGame();
                     menu = 0;
                     init = 0;
@@ -235,13 +263,19 @@ void main()
                 DrawRectangle(0, 0, 1150, 650, (Color){46, 52, 64, 150});
                 DrawRectangle(330, 240, 450, 240, (Color){46, 52, 64, 255});
                 DrawText(TextFormat("Final Score: %d", cs), 350, 270, 25, WHITE);
+                if(framecheck == 0){
+                    PlaySound(death);
+                }
+                framecheck++;
 
                 if (GuiTextBox((Rectangle){350, 330, 410, 50}, fsn, 50, editmode)) {
+                    PlaySound(buttonpress);
                     editmode = !editmode;
                 }
 
 
                 if(load_button(&submit, 3) == 1){
+                    PlaySound(sendscores);
                     add_score(&head, cs, &(*fsn));
                     menu = 4;
                     init = 0;
@@ -258,9 +292,11 @@ void main()
             DrawText(TextFormat("O Ima pode ser usado para atrair items boms", cs), 230, 280, 30, WHITE);
             DrawText(TextFormat("Começa com 3 vidas", cs), 400, 340, 30, WHITE);
             DrawText(TextFormat("Collete o escudo para defender contra um ataque", cs), 200, 390, 30, WHITE);
+            DrawText(TextFormat("Cada 10.000 pontos, recupera uma vida perdida", cs), 200, 440, 30, WHITE);
 
 
             if(load_button(&leave, 3) == 1){
+                PlaySound(buttonpress);
                 menu = 0;
             }
         }else if (menu == 3){
@@ -271,6 +307,7 @@ void main()
             DrawText(TextFormat("Minecraft", cs), 210, 240, 30, WHITE);
 
             if(load_button(&leave, 3) == 1){
+                PlaySound(buttonpress);
                 menu = 0;
             }
         }else if (menu == 4){
@@ -307,12 +344,14 @@ void main()
 
 
             if(load_button(&hsRestart,3) == 1 || IsKeyPressed(KEY_R)){
+                PlaySound(buttonpress);
                 menu = 1;
                 init = 0;
                 resetGame();
                 // save scores
             }
             if(load_button(&hsMainMenu,3) == 1 || IsKeyPressed(KEY_R)){
+                PlaySound(buttonpress);
                 menu = 0;
                 init = 0;
                 // save scores

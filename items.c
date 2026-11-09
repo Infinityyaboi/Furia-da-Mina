@@ -51,7 +51,7 @@ float getTimeLimit(int cs){
 }
 
 
-void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f, int *h){
+void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, int f, int *h, Sound shield, Sound hit, Sound collect, Sound magnet, Sound recover){
     if(f == 0){
     if(tempoIma > 0.0f){
         tempoIma -= GetFrameTime();
@@ -146,6 +146,7 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, 
                     if (CheckCollisionRecs(listaItens[i].hitBox, plyrColl))
                     {
                         if (listaItens[i].tipo.points == 0){
+                            PlaySound(hit);
                             if(escudoAtivo > 0){
                                 escudoAtivo = 0; // desativa o escudo
                             }else{
@@ -154,16 +155,20 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, 
                             }
                         }
                         else if(listaItens[i].tipo.points == -1){
+                            PlaySound(shield);
                             escudoAtivo = 1;
                         }
                         else if(listaItens[i].tipo.points == -2){
+                            PlaySound(magnet);
                             tempoIma = 6.0f; // ativa o efeito do ímã
-                            }else{
-                                *cs += listaItens[i].tipo.points;
+                        }else{
+                            PlaySound(collect);
+                            *cs += listaItens[i].tipo.points;
 
                             if(*cs >= metaVida){
                                 metaVida += 10000; // aumenta a meta para a próxima vida extra
                                 if(*life < 3){
+                                    PlaySound(recover);
                                     *life += 1; // dá uma vida extra
                                 }
                             }
