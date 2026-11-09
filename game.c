@@ -18,6 +18,7 @@ int init = 0;
 int life = 3;
 int menu = 0;
 int cs = 0;
+int hs = 0;
 int gameover = 0;
 Texture2D p;
 Texture2D w;
@@ -40,6 +41,7 @@ Sound shield;
 Sound magnet;
 Sound recover;
 Sound buttonpress;
+Music music;
 
 void resetGame(){
     if(menu == 1){
@@ -61,7 +63,12 @@ void main()
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
     InitAudioDevice();
+    SetAudioStreamBufferSizeDefault(4096);
     score* head = NULL;
+    
+    if(head != NULL){
+        hs = head -> score;
+    }
 
     collect = LoadSound("sfx/got.wav");
     sendscores = LoadSound("sfx/checkpoint.wav");
@@ -71,6 +78,10 @@ void main()
     magnet = LoadSound("sfx/key.wav");
     recover = LoadSound("sfx/shield.wav");
     buttonpress = LoadSound("sfx/attack7.wav");
+    music = LoadMusicStream("sfx/Peppinos_Sauce_Machine_KLICKAUD.mp3");
+
+    music.looping = true;
+    SetMusicVolume(music, 0.5f);
 
 
     SetTargetFPS(30);
@@ -185,14 +196,26 @@ void main()
                     UnloadTexture(hsMainMenu.texture);
                     hsRestart.texture.id = 0;
                 }
+                PlayMusicStream(music);
+                
                 init = 1;
             }
 
+            
+
             ClearBackground(RAYWHITE);
 
-            // 0,0 coordinate
+            UpdateMusicStream(music); 
+            if (freeze == 1) {
+                if (IsMusicStreamPlaying(music)){
+                    PauseMusicStream(music);
+                }
+            } else {
+                if (!IsMusicStreamPlaying(music)) {
+                    ResumeMusicStream(music);
+                }
+            }
 
-            
 
             
 
@@ -221,7 +244,9 @@ void main()
                 DrawPlayer(p, w, cs, freeze, &hittrue, WHITE);
                 DrawHealth(life, &gameover, h1, &freeze, &hittrue, s1, 0);
             }
-
+            if(hs > 0){
+                DrawText(TextFormat("HIGH SCORE: %d", hs), 30, 88, 20, (Color){180, 167, 232, 240});
+            }
             
 
             DrawForeground(foreground);
@@ -255,6 +280,7 @@ void main()
                 }
                 if(load_button(&gameMainMenu, 3) == 1 || IsKeyPressed(KEY_M)){
                     PlaySound(buttonpress);
+                    StopMusicStream(music);
                     resetGame();
                     menu = 0;
                     init = 0;
@@ -264,6 +290,7 @@ void main()
                 DrawRectangle(330, 240, 450, 240, (Color){46, 52, 64, 255});
                 DrawText(TextFormat("Final Score: %d", cs), 350, 270, 25, WHITE);
                 if(framecheck == 0){
+                    StopMusicStream(music);
                     PlaySound(death);
                 }
                 framecheck++;
@@ -276,7 +303,7 @@ void main()
 
                 if(load_button(&submit, 3) == 1){
                     PlaySound(sendscores);
-                    add_score(&head, cs, &(*fsn));
+                    add_score(&head, cs, &(*fsn), &hs);
                     menu = 4;
                     init = 0;
                 }
@@ -303,8 +330,10 @@ void main()
             ClearBackground((Color){46, 52, 64, 255});
             DrawText(TextFormat("Paulo André Lopes de Almeida", cs), 210, 60, 30, WHITE);
             DrawText(TextFormat("Enzo", cs), 210, 120, 30, WHITE);
-            DrawText(TextFormat("@Rintrynter", cs), 210, 180, 30, WHITE);
-            DrawText(TextFormat("Minecraft", cs), 210, 240, 30, WHITE);
+            DrawText(TextFormat("@Rintrynter sprites", cs), 210, 180, 30, WHITE);
+            DrawText(TextFormat("Minecraft sprites", cs), 210, 240, 30, WHITE);
+            DrawText(TextFormat("FNAF World / Scott Cawthon", cs), 210, 300, 30, WHITE);
+            DrawText(TextFormat("Pizza Tower OST: Peppino's Sauce Machine", cs), 210, 360, 30, WHITE);
 
             if(load_button(&leave, 3) == 1){
                 PlaySound(buttonpress);
@@ -387,6 +416,15 @@ void main()
         UnloadTexture(background);
         UnloadTexture(s1);
     }
+
+    UnloadMusicStream(music);
+    UnloadSound(collect);
+    UnloadSound(hit);
+    UnloadSound(death);
+    UnloadSound(shield);
+    UnloadSound(magnet);
+    UnloadSound(recover);
+    UnloadSound(buttonpress);
 
     CloseAudioDevice();
     CloseWindow();
