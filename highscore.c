@@ -39,10 +39,11 @@ void make_five(score **curr){
     }
 }
 
-void add_score(score** curr, int s, char *nm){
+void add_score(score** curr, int s, char *nm, int *hs){
     score* ns = new_score(s, nm);
     if (*curr == NULL || (*curr)->score < s) {
         ns->next = *curr;
+        *hs = s;
         *curr = ns;
     } else{
         score* aux = *curr;

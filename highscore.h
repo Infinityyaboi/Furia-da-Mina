@@ -12,6 +12,6 @@ typedef struct score{
 }score;
 
 
-void add_score(score** curr, int s, char *nm);
+void add_score(score** curr, int s, char *nm, int *hs);
 
 void DrawLB(score ** curr);

@@ -4,7 +4,7 @@
 #include <math.h>
 #include <raylib.h>
 #include "menu.h"
-#pragma once
+
 
 Button start = {{0}, {500, 325}, 32, 24};
 Button controls = {{0},{450, 400}, 64, 24};
