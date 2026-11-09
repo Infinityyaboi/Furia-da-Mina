@@ -29,6 +29,11 @@ extern Ore Ruby;
 extern Ore Diamond;
 extern Ore Emerald;
 extern Ore Bomb;
+extern Ore Shield;
+extern Ore Magnet;
+
+extern int escudoAtivo;
+extern float tempoIma;
 
 void ItemsStart();
 
