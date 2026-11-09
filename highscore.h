@@ -7,10 +7,11 @@
 
 typedef struct score{
     int score;
-    char nm[5];
+    char nm[50];
     struct score* next;
 }score;
 
-score* new_score(int s);
 
-void add_score(score** curr, int s);
+void add_score(score** curr, int s, char *nm);
+
+void DrawLB(score ** curr);

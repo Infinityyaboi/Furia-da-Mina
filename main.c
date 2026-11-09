@@ -1,3 +1,6 @@
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,8 +12,6 @@
 #include "highscore.h"
 #include "menu.h"
 
-#define RAYGUY_IMPLEMENTATION
-#include "raygui.h"
 
 
 int init = 0;
@@ -50,7 +51,7 @@ void main()
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
     InitAudioDevice();
-
+    score* head = NULL;
 
 
     SetTargetFPS(30);
@@ -63,7 +64,7 @@ void main()
 
         // caixa de collisão do jogador
         Rectangle plyrColl = {playerPos.x + 20, playerPos.y + 50, (32.0 * 3.5) - 20, ((32.0 * 3.5) - 50.0)};
-
+        
         BeginDrawing();
 
         if (menu == 0){
@@ -235,12 +236,13 @@ void main()
                 DrawRectangle(330, 240, 450, 240, (Color){46, 52, 64, 255});
                 DrawText(TextFormat("Final Score: %d", cs), 350, 270, 25, WHITE);
 
-                // fix this
-                //if(GuiTextBox((Rectangle) {350, 370}, &fsn, 25, editmode)){
-                //    editmode = !editmode;
-                //}
+                if (GuiTextBox((Rectangle){350, 330, 410, 50}, fsn, 50, editmode)) {
+                    editmode = !editmode;
+                }
+
 
                 if(load_button(&submit, 3) == 1){
+                    add_score(&head, cs, &(*fsn));
                     menu = 4;
                     init = 0;
                 }
@@ -300,6 +302,9 @@ void main()
             }
 
             ClearBackground((Color){46, 52, 64, 255});
+
+            DrawLB(&head);
+
 
             if(load_button(&hsRestart,3) == 1 || IsKeyPressed(KEY_R)){
                 menu = 1;
