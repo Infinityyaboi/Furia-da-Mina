@@ -77,7 +77,7 @@ void CheckHealth(int life, int **go, Texture2D h1, int **f, Rectangle org1, Rect
 }
 
 
-void DrawHealth(int life, int *go, Texture2D h1, int *f, int *h){
+void DrawHealth(int life, int *go, Texture2D h1, int *f, int *h, Texture2D s, int shi){
     Rectangle org1 = {0,0,10,11};
     Rectangle org2 = {10,0,10,11};
     Rectangle loc1 = {980, 20, org1.width * 3, org1.height * 3};
@@ -101,6 +101,10 @@ void DrawHealth(int life, int *go, Texture2D h1, int *f, int *h){
     } else{
         hl = 0;
         *h = 0;
+    }
+
+    if(shi == 1){
+        DrawTextureEx(s,(Vector2){948,20}, 0, 2, WHITE);
     }
     
 }

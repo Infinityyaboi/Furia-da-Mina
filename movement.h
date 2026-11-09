@@ -9,7 +9,7 @@ extern Vector2 playerPos;
 
 void move(int s, int f);
 
-void DrawPlayer(Texture2D player, Texture2D wheel, int s, int f, int *h);
+void DrawPlayer(Texture2D player, Texture2D wheel, int s, int f, int *h, Color cl);
 
 void DrawBackground(Texture2D b);
 

@@ -22,7 +22,9 @@ Texture2D p;
 Texture2D w;
 Texture2D foreground;
 Texture2D background;
+Texture2D logo;
 Texture2D h1;
+Texture2D s1;
 int framecheck = 0;
 int freeze = 0;
 int hittrue = 0;
@@ -73,6 +75,7 @@ void main()
                     controls.texture = LoadTexture("sprites/buttons/butcontrols.png");
                     leave.texture = LoadTexture("sprites/buttons/butexit.png");
                     credits.texture = LoadTexture("sprites/buttons/butcredits.png");
+                    logo = LoadTexture("sprites/logo1.png");
                 }
                 if (p.id > 0){
                     UnloadTexture(p);
@@ -90,6 +93,7 @@ void main()
                     UnloadTexture(gameMainMenu.texture);
                     UnloadTexture(gamePause.texture);
                     UnloadTexture(submit.texture);
+                    UnloadTexture(s1);
                     p.id = 0;
                 }
                 if(hsRestart.texture.id > 0){
@@ -118,6 +122,8 @@ void main()
                 CloseWindow();
             }
 
+            DrawTextureEx(logo, (Vector2){-25, 45}, 0, 9, WHITE);
+
         }
         else if (menu == 1){
             // game screen
@@ -127,6 +133,7 @@ void main()
                     UnloadTexture(start.texture);
                     UnloadTexture(controls.texture);
                     UnloadTexture(leave.texture);
+                    UnloadTexture(logo);
 
                     start.texture.id = 0;
                 }
@@ -146,6 +153,7 @@ void main()
                     gameMainMenu.texture = LoadTexture("sprites/buttons/butMainMenu.png");
                     gamePause.texture = LoadTexture("sprites/buttons/butpause.png");
                     submit.texture = LoadTexture("sprites/buttons/butsubmit.png");
+                    s1 = LoadTexture("sprites/shield.png");
                 }
                 if(hsRestart.texture.id > 0){
                     UnloadTexture(hsRestart.texture);
@@ -165,7 +173,6 @@ void main()
 
             move(cs, freeze);
             DrawBackground(background);
-            DrawPlayer(p, w, cs, freeze, &hittrue);
 
             // Soma o tempo que passou desde o último frame
             float tl = getTimeLimit(cs);
@@ -174,16 +181,26 @@ void main()
 
             DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, (Color){180, 167, 232, 240});
 
-            if(escudoAtivo > 0){
-                DrawText("ESCUDO: ATIVO", 30, 90, 20, SKYBLUE);
-                DrawCircleLines((int)(plyrColl.x + plyrColl.width / 2), (int)(plyrColl.y + plyrColl.height / 2), 60, SKYBLUE);
-            }
-            if(tempoIma > 0.0f){
+            if(escudoAtivo > 0 && tempoIma <= 0.0f){
+                DrawPlayer(p, w, cs, freeze, &hittrue, SKYBLUE);
+                DrawHealth(life, &gameover, h1, &freeze, &hittrue, s1, 1);
+            } else if(tempoIma > 0.0f && escudoAtivo <= 0){
                 DrawText(TextFormat("IMA: %.1fs", tempoIma), 30, 115, 20, PURPLE);
-                DrawCircleLines((int)(plyrColl.x + plyrColl.width / 2), (int)(plyrColl.y + plyrColl.height / 2), 70, Purple);
+                DrawPlayer(p, w, cs, freeze, &hittrue, PURPLE);
+                DrawHealth(life, &gameover, h1, &freeze, &hittrue, s1, 0);
+            } else if (tempoIma > 0.0f && escudoAtivo > 0){
+                DrawText(TextFormat("IMA: %.1fs", tempoIma), 30, 115, 20, PURPLE);
+                DrawPlayer(p, w, cs, freeze, &hittrue, GOLD);
+                DrawHealth(life, &gameover, h1, &freeze, &hittrue, s1, 1);
+            } else if (tempoIma <= 0.0f && escudoAtivo <= 0){
+                DrawPlayer(p, w, cs, freeze, &hittrue, WHITE);
+                DrawHealth(life, &gameover, h1, &freeze, &hittrue, s1, 0);
             }
+
+            
+
             DrawForeground(foreground);
-            DrawHealth(life, &gameover, h1, &freeze, &hittrue);
+            
 
             if (IsKeyPressed(KEY_G)){
                 freeze = 1;
@@ -306,6 +323,8 @@ void main()
         UnloadTexture(start.texture);
         UnloadTexture(controls.texture);
         UnloadTexture(leave.texture);
+        UnloadTexture(logo);
+
     }
     if (p.id > 0)
     {
@@ -322,6 +341,7 @@ void main()
         UnloadTexture(gameMainMenu.texture);
         UnloadTexture(foreground);
         UnloadTexture(background);
+        UnloadTexture(s1);
     }
 
     CloseAudioDevice();
