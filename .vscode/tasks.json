@@ -8,6 +8,9 @@
             "args": [
                 "main.c",
                 "items.c",
+                "menu.c",
+                "movement.c",
+                "highscore.c",
                 "-o",
                 "main.exe",
                 "-I",

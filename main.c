@@ -155,6 +155,7 @@ void main()
                     gamePause.texture = LoadTexture("sprites/buttons/butpause.png");
                     submit.texture = LoadTexture("sprites/buttons/butsubmit.png");
                     s1 = LoadTexture("sprites/shield.png");
+                    Shield.sprite =s1;
                 }
                 if(hsRestart.texture.id > 0){
                     UnloadTexture(hsRestart.texture);
