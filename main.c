@@ -173,6 +173,15 @@ void main()
             itemLogic(&cs, plyrColl, &life, &gameover, tl, freeze, &hittrue);
 
             DrawText(TextFormat("SCORE: %d", cs), 30, 60, 20, (Color){180, 167, 232, 240});
+
+            if(escudoAtivo > 0){
+                DrawText("ESCUDO: ATIVO", 30, 90, 20, SKYBLUE);
+                DrawCircleLines((int)(plyrColl.x + plyrColl.width / 2), (int)(plyrColl.y + plyrColl.height / 2), 60, SKYBLUE);
+            }
+            if(tempoIma > 0.0f){
+                DrawText(TextFormat("IMA: %.1fs", tempoIma), 30, 115, 20, PURPLE);
+                DrawCircleLines((int)(plyrColl.x + plyrColl.width / 2), (int)(plyrColl.y + plyrColl.height / 2), 70, Purple);
+            }
             DrawForeground(foreground);
             DrawHealth(life, &gameover, h1, &freeze, &hittrue);
 

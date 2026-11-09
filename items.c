@@ -73,7 +73,9 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, 
                         listaItens[i].hitBox.width = 50;
                         listaItens[i].hitBox.height = 50;
                         int chance = GetRandomValue(1, 100);
-                        if(chance <= 70){
+                        int limiteMinerio = 70 - (*cs / 2500) * 2;
+                        if(limiteMinerio < 30) limiteMinerio = 30; // Limita a chance mínima de minérios para 30%
+                        if(chance <= limiteMinerio){
                             // Sorteando qual minério vai cair
                             int sorteioMinerio = GetRandomValue(1, 4); // 1 a 4 para os minérios
                             switch (sorteioMinerio){
