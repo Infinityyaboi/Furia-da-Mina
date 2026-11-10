@@ -63,7 +63,12 @@ void main()
     // X, Y
     InitWindow(1150, 650, "Furia da Mina");
     InitAudioDevice();
-    SetAudioStreamBufferSizeDefault(4096);
+    
+    Image icon = LoadImage("sprites/icon.png");
+    SetWindowIcon(icon);
+    UnloadImage(icon);
+
+
     score* head = NULL;
     
     if(head != NULL){
