@@ -131,6 +131,7 @@ void main()
                     UnloadTexture(gamePause.texture);
                     UnloadTexture(submit.texture);
                     UnloadTexture(s1);
+                    UnloadTexture(Magnet.sprite);
                     p.id = 0;
                 }
                 if(hsRestart.texture.id > 0){
@@ -196,6 +197,7 @@ void main()
                     submit.texture = LoadTexture("sprites/buttons/butsubmit.png");
                     s1 = LoadTexture("sprites/shield.png");
                     Shield.sprite =s1;
+                    Magnet.sprite = LoadTexture("sprites/magnet.png");
                 }
                 if(hsRestart.texture.id > 0){
                     UnloadTexture(hsRestart.texture);
@@ -320,11 +322,11 @@ void main()
             ClearBackground((Color){46, 52, 64, 255});
             DrawText(TextFormat("Use as setas ou teclas A e D para se mover!", cs), 210, 60, 30, WHITE);
             DrawText(TextFormat("Colete minerios e evite as bombas", cs), 280, 120, 30, WHITE);
-            DrawText(TextFormat("Ouro vale 500, Ruby 1000, Diamante 15000 e Esmeralda 25000", cs), 230, 180, 20, WHITE);
+            DrawText(TextFormat("Ouro vale 500, Ruby 1000, Diamante 1500 e Esmeralda 2500", cs), 230, 180, 20, WHITE);
             DrawText(TextFormat("Use consegue recuperar vida com pontos", cs), 260, 230, 30, WHITE);
-            DrawText(TextFormat("O Ima pode ser usado para atrair items boms", cs), 230, 280, 30, WHITE);
+            DrawText(TextFormat("O Ima pode ser usado para atrair itens bons", cs), 230, 280, 30, WHITE);
             DrawText(TextFormat("Começa com 3 vidas", cs), 400, 340, 30, WHITE);
-            DrawText(TextFormat("Collete o escudo para defender contra um ataque", cs), 200, 390, 30, WHITE);
+            DrawText(TextFormat("Colete o escudo para defender contra um ataque", cs), 200, 390, 30, WHITE);
             DrawText(TextFormat("Cada 10.000 pontos, recupera uma vida perdida", cs), 200, 440, 30, WHITE);
 
 
@@ -335,7 +337,7 @@ void main()
         }else if (menu == 3){
             ClearBackground((Color){46, 52, 64, 255});
             DrawText(TextFormat("Paulo André Lopes de Almeida", cs), 210, 60, 30, WHITE);
-            DrawText(TextFormat("Enzo", cs), 210, 120, 30, WHITE);
+            DrawText(TextFormat("Enzo Borges Barbosa de Andrade", cs), 210, 120, 30, WHITE);
             DrawText(TextFormat("@Rintrynter sprites", cs), 210, 180, 30, WHITE);
             DrawText(TextFormat("Minecraft sprites", cs), 210, 240, 30, WHITE);
             DrawText(TextFormat("FNAF World / Scott Cawthon", cs), 210, 300, 30, WHITE);
@@ -368,6 +370,8 @@ void main()
                     UnloadTexture(gameMainMenu.texture);
                     UnloadTexture(gamePause.texture);
                     UnloadTexture(submit.texture);
+                    UnloadTexture(s1);
+                    UnloadTexture(Magnet.sprite);
                     p.id = 0;
                 }
                 init = 1;
@@ -421,6 +425,7 @@ void main()
         UnloadTexture(foreground);
         UnloadTexture(background);
         UnloadTexture(s1);
+        UnloadTexture(Magnet.sprite);
     }
 
     UnloadMusicStream(music);

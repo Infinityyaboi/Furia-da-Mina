@@ -7,15 +7,22 @@
 
 #define MAX_ITENS 30
 
-//Ores
+// matriz com pontos, velocidade e rotacao dos minerios
+float configMinerios[4][3] = {
+    {500.0f,  1.0f, 2.0f}, // Gold
+    {1000.0f, 2.0f, 3.0f}, // Ruby
+    {1500.0f, 2.5f, 4.0f}, // Diamond
+    {2500.0f, 3.5f, 5.0f}  // Emerald
+};
 
-Ore Gold = {500, 1.0f, {0}, 0, 2};
-Ore Ruby = {1000, 2.0f, {0}, 0, 3};
-Ore Diamond = {1500, 2.5f, {0}, 0, 4};
-Ore Emerald = {2500, 3.5f, {0}, 0, 5};
-Ore Bomb = {0, 1.5f, {0}, 0, 2.5};
-Ore Shield = {-1, 2.0f, {0}, 0, 2};
-Ore Magnet = {-2, 2.0f, {0}, 0, 2};
+// Ores e Itens
+Ore Gold = {0};
+Ore Ruby = {0};
+Ore Diamond = {0};
+Ore Emerald = {0};
+Ore Bomb = {0, 1.5f, {0}, 0, 2.5f};
+Ore Shield = {-1, 2.0f, {0}, 0, 2.0f};
+Ore Magnet = {-2, 2.0f, {0}, 0, 2.0f};
 
 int escudoAtivo = 0;
 float tempoIma = 0.0f;
@@ -27,13 +34,16 @@ void ItemsStart(){
     for(int i = 0; i < MAX_ITENS; i++){
         listaItens[i].ativo = 0;
     }
-}
+    
+    // Carrega os atributos de cada minerio a partir da matriz 2D
+    Ore *minerios[4] = {&Gold, &Ruby, &Diamond, &Emerald};
+    for(int i = 0; i < 4; i++){
+        minerios[i]->points = (int)configMinerios[i][0];
+        minerios[i]->fallspd = configMinerios[i][1];
+        minerios[i]->rotRate = configMinerios[i][2];
+    }
+}   
 
-// Bombs
-
-// Escudo
-
-// Magnet
 
 float timerSpawn = 0;
 
@@ -133,14 +143,6 @@ void itemLogic(int *cs, Rectangle plyrColl, int *life, int *gameover, float tl, 
                     if (listaItens[i].tipo.sprite.id > 0) {
                         Rectangle recorteOriginal = {0.0f, 0.0f, (float)listaItens[i].tipo.sprite.width, (float)listaItens[i].tipo.sprite.height};
                         DrawTexturePro(listaItens[i].tipo.sprite, recorteOriginal, listaItens[i].hitBox, (Vector2){16, 16}, listaItens[i].tipo.rot, WHITE);
-                    } else if (listaItens[i].tipo.points == -1) {
-                        // Desenho provisório do Escudo (Bolinha Azul com E)
-                        DrawCircle((int)listaItens[i].hitBox.x + 25, (int)listaItens[i].hitBox.y + 25, 22, SKYBLUE);
-                        DrawText("E", (int)listaItens[i].hitBox.x + 18, (int)listaItens[i].hitBox.y + 13, 25, DARKBLUE);
-                    } else if (listaItens[i].tipo.points == -2) {
-                        // Desenho provisório do Ímã (Bolinha Roxa com I)
-                        DrawCircle((int)listaItens[i].hitBox.x + 25, (int)listaItens[i].hitBox.y + 25, 22, PURPLE);
-                        DrawText("I", (int)listaItens[i].hitBox.x + 21, (int)listaItens[i].hitBox.y + 13, 25, WHITE);
                     }
                     // COLETA: Checa se o retângulo do item encostou no retângulo do jogador (plyrColl)
                     if (CheckCollisionRecs(listaItens[i].hitBox, plyrColl))
