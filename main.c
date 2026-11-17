@@ -43,6 +43,8 @@ Sound recover;
 Sound buttonpress;
 Music music;
 
+FILE *highscores;
+
 void resetGame(){
     if(menu == 1){
         reset_pos();
@@ -70,10 +72,22 @@ void main()
 
 
     score* head = NULL;
+
+    highscores = fopen("HIGH_SCORES.txt", "r");
+
+    if(highscores != NULL){
+        fclose(highscores);
+        loadScores(&highscores, &head);
+    } else{
+        fclose(highscores);
+    }
+    
     
     if(head != NULL){
         hs = head -> score;
     }
+
+
 
     collect = LoadSound("sfx/got.wav");
     sendscores = LoadSound("sfx/checkpoint.wav");

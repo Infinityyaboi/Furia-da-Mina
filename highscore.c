@@ -93,3 +93,29 @@ void DrawLB(score ** curr){
     }
 
 }
+
+void loadScores(FILE **hs, score **cs){
+    hs = fopen("HIGH_SCORES.txt", "r");
+    char ch;
+    int state = 0;
+    score *aux = *cs;
+    char nm[50];
+    int s;
+
+    while(fscanf(hs, "%d %s", &s, nm) != EOF){
+        score* temp = new_score(s, nm);
+        if(aux == NULL){
+            temp -> next = aux;
+            aux = temp;
+        } else{
+            aux -> next = temp;
+            aux = aux -> next;
+        }
+
+    }
+    fclose(hs);
+}
+
+void saveScores(FILE **hs, score **cs){
+
+}
