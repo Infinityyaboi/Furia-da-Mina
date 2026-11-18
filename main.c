@@ -77,7 +77,7 @@ void main()
 
     if(highscores != NULL){
         fclose(highscores);
-        loadScores(&highscores, &head);
+        loadScores(highscores, &head);
     } else{
         fclose(highscores);
     }
@@ -326,6 +326,7 @@ void main()
                 if(load_button(&submit, 3) == 1){
                     PlaySound(sendscores);
                     add_score(&head, cs, &(*fsn), &hs);
+                    saveScores(highscores, &head);
                     menu = 4;
                     init = 0;
                 }
@@ -401,20 +402,20 @@ void main()
                 menu = 1;
                 init = 0;
                 resetGame();
-                // save scores
+                saveScores(highscores, &head);
             }
             if(load_button(&hsMainMenu,3) == 1 || IsKeyPressed(KEY_R)){
                 PlaySound(buttonpress);
                 menu = 0;
                 init = 0;
-                // save scores
+                saveScores(highscores, &head);
             }
             
         }
             
         EndDrawing();
     }
-    // save scores
+    saveScores(highscores, &head);
     if (start.texture.id > 0)
     {
         UnloadTexture(start.texture);
